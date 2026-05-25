@@ -33,6 +33,7 @@
             android:layout_marginStart="12dp">
 
             <TextView
+                android:id="@+id/tvGreeting"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Wilujeng Sumping, Taufan 👋"
@@ -41,6 +42,7 @@
                 android:textSize="14sp" />
 
             <TextView
+                android:id="@+id/tvUserLocation"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="📍 Kuningan"

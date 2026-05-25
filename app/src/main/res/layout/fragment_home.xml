@@ -41,12 +41,17 @@
             android:weightSum="4">
 
             <LinearLayout
+                android:id="@+id/btnCategoryGunung"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:clickable="true"
+                android:focusable="true"
+                android:background="?attr/selectableItemBackground">
                 <androidx.cardview.widget.CardView
+                    android:id="@+id/cvCategoryGunung"
                     android:layout_width="65dp"
                     android:layout_height="65dp"
                     app:cardBackgroundColor="#F8FDFB"
@@ -68,12 +73,17 @@
             </LinearLayout>
 
             <LinearLayout
+                android:id="@+id/btnCategoryPantai"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:clickable="true"
+                android:focusable="true"
+                android:background="?attr/selectableItemBackground">
                 <androidx.cardview.widget.CardView
+                    android:id="@+id/cvCategoryPantai"
                     android:layout_width="65dp"
                     android:layout_height="65dp"
                     app:cardBackgroundColor="#F8FDFB"
@@ -95,12 +105,17 @@
             </LinearLayout>
 
             <LinearLayout
+                android:id="@+id/btnCategoryCurug"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:clickable="true"
+                android:focusable="true"
+                android:background="?attr/selectableItemBackground">
                 <androidx.cardview.widget.CardView
+                    android:id="@+id/cvCategoryCurug"
                     android:layout_width="65dp"
                     android:layout_height="65dp"
                     app:cardBackgroundColor="#F8FDFB"
@@ -122,12 +137,17 @@
             </LinearLayout>
 
             <LinearLayout
+                android:id="@+id/btnCategoryDanau"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:clickable="true"
+                android:focusable="true"
+                android:background="?attr/selectableItemBackground">
                 <androidx.cardview.widget.CardView
+                    android:id="@+id/cvCategoryDanau"
                     android:layout_width="65dp"
                     android:layout_height="65dp"
                     app:cardBackgroundColor="#F8FDFB"

@@ -14,15 +14,20 @@ class FavoriteFragment : Fragment(R.layout.fragment_favorite) {
         super.onViewCreated(view, savedInstanceState)
         _binding = FragmentFavoriteBinding.bind(view)
 
-        // Contoh data dummy yang difavoritkan
-        val dataFav = listOf(
-            Wisata("Curug Putri", "Kuningan", R.drawable.curugputri, "Kuningan", "Rp 20.000", "Deskripsi..."),
-            Wisata("kawah putih", "Bandung", R.drawable.kawahputih, "Bandung", "Rp 15.000", "Deskripsi...")
-        )
+        // Load data riil dari FavoriteManager
+        val dataFav = FavoriteManager.getFavorites()
 
-        binding.rvFavorite.apply {
-            layoutManager = LinearLayoutManager(context)
-            adapter = FavoriteAdapter(dataFav)
+        if (dataFav.isEmpty()) {
+            binding.rvFavorite.visibility = View.GONE
+            binding.layoutEmptyFavorite.visibility = View.VISIBLE
+        } else {
+            binding.rvFavorite.visibility = View.VISIBLE
+            binding.layoutEmptyFavorite.visibility = View.GONE
+
+            binding.rvFavorite.apply {
+                layoutManager = LinearLayoutManager(context)
+                adapter = FavoriteAdapter(dataFav)
+            }
         }
     }
 

@@ -14,58 +14,10 @@ class ExploreFragment : Fragment() {
     private var _binding: FragmentExploreBinding? = null
     private val binding get() = _binding!!
     private lateinit var exploreAdapter: ExploreAdapter
+    private lateinit var populerAdapter: PopulerAdapter
 
-    // Data Lengkap sesuai model Wisata yang sudah Parcelable
-    private val listSemuaWisata = listOf(
-        Wisata(
-            "Gunung Papandayan",
-            "Garut",
-            R.drawable.papandayan,
-            "Garut",
-            "Rp 35.000",
-            "Gunung api yang menawarkan pemandangan kawah dan padang edelweiss yang sangat indah."
-        ),
-        Wisata(
-            "Kawah Putih",
-            "Bandung",
-            R.drawable.kawahputih,
-            "Bandung",
-            "Rp 28.000",
-            "Danau kawah yang airnya berwarna putih kehijauan dengan suasana kabut yang estetik."
-        ),
-        Wisata(
-            "Curug Putri",
-            "Kuningan",
-            R.drawable.curugputri,
-            "Kuningan",
-            "Rp 20.000",
-            "Terletak di kaki Gunung Ciremai, Curug Putri menawarkan pesona air terjun yang memukau dan udara segar."
-        ),
-        Wisata(
-            "Situ Patenggang",
-            "Bandung",
-            R.drawable.situpatenggang,
-            "Bandung",
-            "Rp 25.000",
-            "Danau yang dikelilingi hamparan kebun teh hijau yang sangat menyejukkan mata."
-        ),
-        Wisata(
-            "Kebun Raya",
-            "Bogor",
-            R.drawable.kebunraya,
-            "Bogor",
-            "Rp 15.000",
-            "Hutan kota terbesar yang menjadi paru-paru kota Bogor dengan ribuan koleksi pohon."
-        ),
-        Wisata(
-            "Cirebon Waterland",
-            "Cirebon",
-            R.drawable.cirebonwaterland,
-            "Cirebon",
-            "Rp 50.000",
-            "Wisata air modern di pinggir pantai yang cocok untuk liburan keluarga."
-        )
-    )
+    // Data Lengkap sesuai model Wisata yang sudah Parcelable, diinisialisasi kosong (fully dynamic)
+    private var listSemuaWisata = emptyList<Wisata>()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -80,18 +32,67 @@ class ExploreFragment : Fragment() {
 
         setupRecyclerView()
         setupTabLayout()
+        fetchWisataFromApi()
     }
 
     private fun setupRecyclerView() {
-        // Inisialisasi adapter (Logika klik sudah ditangani di dalam ExploreAdapter)
+        // Inisialisasi adapter grid (Explore)
         exploreAdapter = ExploreAdapter(listSemuaWisata)
-
         binding.rvExplore.apply {
-            // Menggunakan 2 kolom agar persis seperti gambar referensi
             layoutManager = GridLayoutManager(context, 2)
             adapter = exploreAdapter
             setHasFixedSize(true)
         }
+
+        // Inisialisasi adapter horizontal (Populer)
+        populerAdapter = PopulerAdapter(listSemuaWisata.take(4))
+        binding.rvPopuler.apply {
+            layoutManager = androidx.recyclerview.widget.LinearLayoutManager(context, androidx.recyclerview.widget.LinearLayoutManager.HORIZONTAL, false)
+            adapter = populerAdapter
+            setHasFixedSize(true)
+        }
+    }
+
+    private fun fetchWisataFromApi() {
+        com.taufan.projectakhir.api.RetrofitClient.instance.getWisata()
+            .enqueue(object : retrofit2.Callback<com.taufan.projectakhir.api.WisataResponse> {
+                override fun onResponse(
+                    call: retrofit2.Call<com.taufan.projectakhir.api.WisataResponse>,
+                    response: retrofit2.Response<com.taufan.projectakhir.api.WisataResponse>
+                ) {
+                    if (_binding == null || !isAdded) return
+                    if (response.isSuccessful) {
+                        val body = response.body()
+                        if (body != null && body.status == "success") {
+                            val apiWisataList = body.data
+                            val mappedList = apiWisataList.map { it.toWisata() }
+                            if (mappedList.isNotEmpty()) {
+                                listSemuaWisata = mappedList
+                                
+                                // Refresh adapter Populer dengan 4 data pertama dari API
+                                populerAdapter = PopulerAdapter(mappedList.take(4))
+                                binding.rvPopuler.adapter = populerAdapter
+
+                                // Refresh adapter grid explore dengan data terbaru
+                                val selectedTabPosition = binding.tabCity.selectedTabPosition
+                                val activeCity = if (selectedTabPosition != com.google.android.material.tabs.TabLayout.Tab.INVALID_POSITION) {
+                                    binding.tabCity.getTabAt(selectedTabPosition)?.text.toString()
+                                } else {
+                                    "All"
+                                }
+                                filterWisata(activeCity)
+                            }
+                        }
+                    }
+                }
+
+                override fun onFailure(
+                    call: retrofit2.Call<com.taufan.projectakhir.api.WisataResponse>,
+                    t: Throwable
+                ) {
+                    // Biarkan menggunakan default listSemuaWisata jika koneksi gagal
+                }
+            })
     }
 
     private fun setupTabLayout() {
@@ -120,6 +121,14 @@ class ExploreFragment : Fragment() {
             listSemuaWisata
         } else {
             listSemuaWisata.filter { it.kota == kota }
+        }
+
+        if (hasilFilter.isEmpty()) {
+            binding.rvExplore.visibility = View.GONE
+            binding.layoutEmptyExplore.visibility = View.VISIBLE
+        } else {
+            binding.rvExplore.visibility = View.VISIBLE
+            binding.layoutEmptyExplore.visibility = View.GONE
         }
         exploreAdapter.updateData(hasilFilter)
     }

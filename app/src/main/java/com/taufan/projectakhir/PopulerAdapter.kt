@@ -24,13 +24,23 @@ class PopulerAdapter(private val listPopuler: List<Wisata>) :
         holder.binding.apply {
             tvNamaPopuler.text = data.nama
             tvLokasiPopuler.text = "📍 ${data.lokasi}"
-            ivPopuler.setImageResource(data.gambar)
+            
+            if (!data.gambarUrl.isNullOrEmpty()) {
+                com.bumptech.glide.Glide.with(ivPopuler.context)
+                    .load(data.gambarUrl)
+                    .placeholder(data.gambar)
+                    .error(data.gambar)
+                    .into(ivPopuler)
+            } else {
+                ivPopuler.setImageResource(data.gambar)
+            }
 
             // Klik kartu untuk ke Detail
             root.setOnClickListener {
                 val intent = Intent(root.context, DetailActivity::class.java)
                 intent.putExtra("EXTRA_WISATA", data)
                 root.context.startActivity(intent)
+                (root.context as? android.app.Activity)?.overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out)
             }
         }
     }

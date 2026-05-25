@@ -33,13 +33,23 @@ class ExploreAdapter(private var listWisata: List<Wisata>) :
             // 1. Set Data ke UI
             tvNamaWisata.text = data.nama
             tvLokasi.text = "📍 ${data.lokasi}"
-            ivWisata.setImageResource(data.gambar)
+            
+            if (!data.gambarUrl.isNullOrEmpty()) {
+                com.bumptech.glide.Glide.with(ivWisata.context)
+                    .load(data.gambarUrl)
+                    .placeholder(data.gambar)
+                    .error(data.gambar)
+                    .into(ivWisata)
+            } else {
+                ivWisata.setImageResource(data.gambar)
+            }
 
             // 2. Klik Kartu -> Pindah ke DetailActivity
             root.setOnClickListener {
                 val intent = Intent(root.context, DetailActivity::class.java)
                 intent.putExtra("EXTRA_WISATA", data)
                 root.context.startActivity(intent)
+                (root.context as? android.app.Activity)?.overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out)
             }
         }
     }

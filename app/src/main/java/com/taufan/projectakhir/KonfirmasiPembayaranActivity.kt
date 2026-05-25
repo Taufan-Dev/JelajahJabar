@@ -20,6 +20,7 @@ class KonfirmasiPembayaranActivity : AppCompatActivity() {
         val nama = intent.getStringExtra("NAMA_WISATA") ?: "Nama Wisata"
         val hargaString = intent.getStringExtra("HARGA_WISATA") ?: "Rp 0"
         val gambar = intent.getIntExtra("GAMBAR_WISATA", 0)
+        val gambarUrl = intent.getStringExtra("GAMBAR_URL_WISATA")
         val lokasi = intent.getStringExtra("LOKASI_WISATA") ?: ""
 
         // 2. Set Data ke UI
@@ -27,7 +28,17 @@ class KonfirmasiPembayaranActivity : AppCompatActivity() {
             // Data Wisata (pada bagian <include>)
             cardWisata.tvNamaWisataFav.text = nama
             cardWisata.tvLokasiFav.text = "📍 $lokasi"
-            cardWisata.ivWisataFav.setImageResource(gambar)
+            
+            // Load Gambar menggunakan Glide jika URL tersedia
+            if (!gambarUrl.isNullOrEmpty()) {
+                com.bumptech.glide.Glide.with(cardWisata.ivWisataFav.context)
+                    .load(gambarUrl)
+                    .placeholder(gambar)
+                    .error(gambar)
+                    .into(cardWisata.ivWisataFav)
+            } else {
+                cardWisata.ivWisataFav.setImageResource(gambar)
+            }
 
             // Data Ringkasan
             tvHargaTiket.text = hargaString
@@ -63,12 +74,14 @@ class KonfirmasiPembayaranActivity : AppCompatActivity() {
                 // Skenario jika berhasil
                 Toast.makeText(this, "Pembayaran Berhasil! Tiket dikirim ke Email.", Toast.LENGTH_LONG).show()
                 finish() // Menutup halaman dan kembali
+                overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out)
             }
         }
 
         // 5. Tombol Kembali
         binding.btnBack.setOnClickListener {
             finish()
+            overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out)
         }
     }
 }

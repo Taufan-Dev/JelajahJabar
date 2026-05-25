@@ -2,15 +2,19 @@ package com.taufan.projectakhir
 
 import android.content.Intent
 import android.os.Bundle
-import android.widget.Button
-import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import com.taufan.projectakhir.databinding.ActivitySignUpBinding // Gunakan Binding agar lebih rapi
+import com.taufan.projectakhir.api.RegisterRequest
+import com.taufan.projectakhir.api.RegisterResponse
+import com.taufan.projectakhir.api.RetrofitClient
+import com.taufan.projectakhir.databinding.ActivitySignUpBinding
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
+import android.util.Patterns
 
 class SignUpActivity : AppCompatActivity() {
 
-    // Menggunakan View Binding agar selaras dengan MainActivity/Fragment lainnya
     private lateinit var binding: ActivitySignUpBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -18,41 +22,131 @@ class SignUpActivity : AppCompatActivity() {
         binding = ActivitySignUpBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        // 1. Aksi Tombol Register
         binding.btnRegister.setOnClickListener {
-            val name = binding.etName.text.toString()
-            val email = binding.etEmail.text.toString()
-            val password = binding.etPassword.text.toString()
+            val name = binding.etName.text.toString().trim()
+            val email = binding.etEmail.text.toString().trim()
+            val password = binding.etPassword.text.toString().trim()
 
-            // Logika Cek Input (Jangan sampai kosong)
-            if (name.isNotEmpty() && email.isNotEmpty() && password.isNotEmpty()) {
-
-                // Menampilkan Pesan Berhasil
-                Toast.makeText(this, "Registrasi Berhasil! Silakan Login", Toast.LENGTH_LONG).show()
-
-                // Pindah ke LoginActivity
-                val intent = Intent(this, LoginActivity::class.java)
-                startActivity(intent)
-
-                // Finish agar user tidak bisa balik lagi ke halaman Sign Up dengan tombol back
-                finish()
-
-            } else {
-                // Pesan Jika ada yang kosong
-                Toast.makeText(this, "Mohon isi semua data!", Toast.LENGTH_SHORT).show()
+            if (validateInput(name, email, password)) {
+                registerUser(name, email, password)
             }
         }
 
-        // 2. Aksi Teks "Sign In" (Jika sudah punya akun)
         binding.tvSignin.setOnClickListener {
             val intent = Intent(this, LoginActivity::class.java)
             startActivity(intent)
+            overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out)
             finish()
         }
 
-        // 3. Tombol Back (Arrow di pojok kiri atas)
         binding.btnBack.setOnClickListener {
-            onBackPressed()
+            onBackPressedDispatcher.onBackPressed()
+            overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out)
+        }
+    }
+
+    private fun validateInput(name: String, email: String, password: String): Boolean {
+        var isValid = true
+
+        if (name.isEmpty()) {
+            binding.tilName.error = "Nama lengkap wajib diisi"
+            isValid = false
+        } else {
+            binding.tilName.error = null
+        }
+
+        if (email.isEmpty()) {
+            binding.tilEmail.error = "Email wajib diisi"
+            isValid = false
+        } else if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
+            binding.tilEmail.error = "Format email tidak valid"
+            isValid = false
+        } else {
+            binding.tilEmail.error = null
+        }
+
+        // Disesuaikan dengan backend: minimal 8 karakter
+        if (password.isEmpty()) {
+            binding.tilPassword.error = "Password wajib diisi"
+            isValid = false
+        } else if (password.length < 8) {
+            binding.tilPassword.error = "Password minimal 8 karakter"
+            isValid = false
+        } else {
+            binding.tilPassword.error = null
+        }
+
+        return isValid
+    }
+
+    private fun registerUser(name: String, email: String, password: String) {
+        setLoadingState(true)
+        val request = RegisterRequest(name, email, password)
+
+        RetrofitClient.instance.register(request).enqueue(object : Callback<RegisterResponse> {
+            override fun onResponse(call: Call<RegisterResponse>, response: Response<RegisterResponse>) {
+                setLoadingState(false)
+
+                if (response.isSuccessful) {
+                    val registerResponse = response.body()
+
+                    // API mengembalikan: {"status":"success","message":"...","data":{"user":{...},"token":"..."}}
+                    if (registerResponse?.status == "success") {
+                        Toast.makeText(
+                            this@SignUpActivity,
+                            "Registrasi Berhasil! Silakan Login",
+                            Toast.LENGTH_LONG
+                        ).show()
+                        val intent = Intent(this@SignUpActivity, LoginActivity::class.java)
+                        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                        startActivity(intent)
+                        overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out)
+                        finish()
+                    } else {
+                        val pesan = registerResponse?.message ?: "Registrasi gagal, coba lagi"
+                        Toast.makeText(this@SignUpActivity, pesan, Toast.LENGTH_SHORT).show()
+                    }
+                } else {
+                    // Tangani error validasi dari server (status 422)
+                    when (response.code()) {
+                        422 -> {
+                            // Coba baca error body
+                            val errorBody = response.errorBody()?.string()
+                            if (errorBody != null && errorBody.contains("password")) {
+                                binding.tilPassword.error = "Password minimal 8 karakter"
+                            } else if (errorBody != null && errorBody.contains("email")) {
+                                binding.tilEmail.error = "Email sudah terdaftar"
+                            } else {
+                                Toast.makeText(this@SignUpActivity, "Data tidak valid, periksa kembali", Toast.LENGTH_SHORT).show()
+                            }
+                        }
+                        else -> {
+                            Toast.makeText(this@SignUpActivity, "Terjadi kesalahan (${response.code()})", Toast.LENGTH_SHORT).show()
+                        }
+                    }
+                }
+            }
+
+            override fun onFailure(call: Call<RegisterResponse>, t: Throwable) {
+                setLoadingState(false)
+                Toast.makeText(this@SignUpActivity, "Tidak dapat terhubung ke server: ${t.message}", Toast.LENGTH_SHORT).show()
+            }
+        })
+    }
+
+    private fun setLoadingState(isLoading: Boolean) {
+        if (isLoading) {
+            binding.btnRegister.isEnabled = false
+            binding.btnRegister.text = "Mohon tunggu..."
+            binding.etName.isEnabled = false
+            binding.etEmail.isEnabled = false
+            binding.etPassword.isEnabled = false
+        } else {
+            binding.btnRegister.isEnabled = true
+            binding.btnRegister.text = "Register"
+            binding.etName.isEnabled = true
+            binding.etEmail.isEnabled = true
+            binding.etPassword.isEnabled = true
         }
     }
 }

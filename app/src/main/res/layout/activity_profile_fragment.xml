@@ -23,7 +23,7 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_above="@+id/btnSimpan"
+        android:layout_above="@+id/layoutButtons"
         android:layout_below="@id/headerProfile">
 
         <LinearLayout
@@ -49,36 +49,71 @@
                 android:layout_marginTop="32dp"
                 android:orientation="vertical">
 
-                <TextView style="@style/LabelProfile" android:text="Name" />
-                <TextView style="@style/EditProfile" android:text="Taufan Hidayatul Akbar" />
+                <TextView style="@style/LabelProfile" android:text="Nama" />
+                <EditText
+                    android:id="@+id/etProfileName"
+                    style="@style/EditProfile"
+                    android:inputType="textPersonName"
+                    android:text="Taufan Hidayatul Akbar" />
                 <View style="@style/LineProfile" />
 
                 <TextView style="@style/LabelProfile" android:text="Username" />
-                <TextView style="@style/EditProfile" android:text="TaufanGanteng" />
+                <EditText
+                    android:id="@+id/etProfileUsername"
+                    style="@style/EditProfile"
+                    android:inputType="text"
+                    android:text="TaufanGanteng" />
                 <View style="@style/LineProfile" />
 
-                <TextView style="@style/LabelProfile" android:text="Phone number" />
-                <TextView style="@style/EditProfile" android:text="+1 515 599 9655" />
+                <TextView style="@style/LabelProfile" android:text="No. Telepon" />
+                <EditText
+                    android:id="@+id/etProfilePhone"
+                    style="@style/EditProfile"
+                    android:inputType="phone"
+                    android:text="+62 812 3456 789" />
                 <View style="@style/LineProfile" />
 
                 <TextView style="@style/LabelProfile" android:text="Email" />
-                <TextView style="@style/EditProfile" android:text="taufanganteng123@gmail.com" />
+                <EditText
+                    android:id="@+id/etProfileEmail"
+                    style="@style/EditProfile"
+                    android:inputType="textEmailAddress"
+                    android:text="taufanganteng123@gmail.com" />
                 <View style="@style/LineProfile" />
 
             </LinearLayout>
         </LinearLayout>
     </ScrollView>
 
-    <Button
-        android:id="@+id/btnSimpan"
+    <LinearLayout
+        android:id="@+id/layoutButtons"
         android:layout_width="match_parent"
-        android:layout_height="56dp"
+        android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:layout_margin="20dp"
-        android:backgroundTint="#1BBA85"
-        android:text="Simpan"
-        android:textAllCaps="false"
-        android:textSize="16sp"
-        app:cornerRadius="12dp" />
+        android:orientation="vertical"
+        android:padding="20dp">
+
+        <Button
+            android:id="@+id/btnSimpan"
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:backgroundTint="#1BBA85"
+            android:text="Simpan Profil"
+            android:textAllCaps="false"
+            android:textSize="16sp"
+            app:cornerRadius="12dp" />
+
+        <Button
+            android:id="@+id/btnLogoutProfile"
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:layout_marginTop="10dp"
+            android:backgroundTint="#EF4444"
+            android:text="Keluar / Logout"
+            android:textAllCaps="false"
+            android:textColor="@color/white"
+            android:textSize="16sp"
+            app:cornerRadius="12dp" />
+    </LinearLayout>
 
 </RelativeLayout>
