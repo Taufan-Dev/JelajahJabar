@@ -24,15 +24,7 @@ class FavoriteAdapter(private val listFav: List<Wisata>) :
             tvNamaWisataFav.text = data.nama
             tvLokasiFav.text = "📍 ${data.lokasi}"
             
-            if (!data.gambarUrl.isNullOrEmpty()) {
-                com.bumptech.glide.Glide.with(ivWisataFav.context)
-                    .load(data.gambarUrl)
-                    .placeholder(data.gambar)
-                    .error(data.gambar)
-                    .into(ivWisataFav)
-            } else {
-                ivWisataFav.setImageResource(data.gambar)
-            }
+            GlideHelper.loadImage(ivWisataFav, data.gambarUrl, data.gambar)
             // Ikon love di sini sudah otomatis merah sesuai XML
         }
     }

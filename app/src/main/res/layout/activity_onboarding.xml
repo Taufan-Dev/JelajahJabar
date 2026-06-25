@@ -5,78 +5,63 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
+    android:background="?attr/colorSurface"
     tools:context=".OnboardingActivity">
-
-    <ImageButton
-        android:id="@+id/btn_back"
-        android:layout_width="48dp"
-        android:layout_height="48dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:background="?attr/selectableItemBackgroundBorderless"
-        android:contentDescription="Back"
-        android:src="@drawable/logo"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:ignore="SpeakableTextPresentCheck" />
 
     <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/iv_illustration"
         android:layout_width="0dp"
-        android:layout_height="350dp"
-        android:layout_marginHorizontal="32dp"
-        android:scaleType="fitCenter"
+        android:layout_height="0dp"
+        android:layout_marginHorizontal="40dp"
+        android:layout_marginTop="40dp"
         android:src="@drawable/orang"
+        android:scaleType="fitCenter"
         app:layout_constraintBottom_toTopOf="@+id/tv_title"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btn_back"
-        app:layout_constraintVertical_chainStyle="packed" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_weight="1" />
 
     <TextView
         android:id="@+id/tv_title"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
-        android:text="JelajahJabar"
-        android:textColor="#1BBA85"
+        android:layout_marginHorizontal="32dp"
+        android:layout_marginBottom="16dp"
+        android:text="Jelajahi Pesona Jawa Barat"
+        android:textColor="?attr/colorOnSurface"
         android:textSize="32sp"
-        android:textStyle="bold"
+        android:fontFamily="sans-serif-black"
+        android:lineHeight="40sp"
         app:layout_constraintBottom_toTopOf="@+id/tv_description"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/iv_illustration" />
+        app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
         android:id="@+id/tv_description"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="40dp"
-        android:layout_marginTop="16dp"
-        android:gravity="center"
-        android:text="JelajahJabar adalah aplikasi mobile yang dirancang untuk membantu pengguna menjelajahi berbagai tempat wisata, budaya, dan kuliner di Jawa Barat."
-        android:textColor="#757575"
-        android:textSize="14sp"
+        android:layout_marginHorizontal="32dp"
+        android:layout_marginBottom="48dp"
+        android:text="Temukan destinasi wisata tersembunyi, budaya lokal yang kaya, dan kuliner autentik dalam satu aplikasi."
+        android:textColor="?attr/colorOnSurfaceVariant"
+        android:textSize="16sp"
+        android:lineHeight="24sp"
         app:layout_constraintBottom_toTopOf="@+id/btn_next"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_title" />
+        app:layout_constraintStart_toStartOf="parent" />
 
-    <androidx.appcompat.widget.AppCompatButton
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/btn_next"
+        style="@style/Widget.App.Button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="32dp"
-        android:layout_marginBottom="32dp"
-        android:background="#1BBA85"
-        android:paddingVertical="12dp"
-        android:text="Selanjutnya"
+        android:layout_marginBottom="48dp"
+        android:text="Mulai Sekarang"
         android:textAllCaps="false"
-        android:textColor="@color/white"
-        android:textSize="18sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        android:textSize="16sp"
+        android:fontFamily="sans-serif-medium"
+        app:layout_constraintBottom_toBottomOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

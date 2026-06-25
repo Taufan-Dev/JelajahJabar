@@ -1,43 +1,104 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:tools="http://schemas.android.com/tools">
 
+    <!-- Base application theme. -->
     <style name="Theme.ProjectAkhir" parent="Theme.Material3.DayNight.NoActionBar">
-        <item name="colorPrimary">@color/green_primary</item>
-        <item name="colorSecondary">@color/green_primary</item>
-        <item name="colorTertiary">@color/green_primary</item>
+        <!-- Primary brand color. -->
+        <item name="colorPrimary">@color/primary</item>
+        <item name="colorOnPrimary">@color/white</item>
+        <item name="colorPrimaryContainer">@color/brand_primary_soft</item>
+        <item name="colorOnPrimaryContainer">@color/brand_primary_variant</item>
 
-        <item name="android:statusBarColor">@color/green_primary</item>
-        <item name="android:windowLightStatusBar">false</item>
+        <!-- Secondary brand color. -->
+        <item name="colorSecondary">@color/brand_primary</item>
+        <item name="colorOnSecondary">@color/white</item>
+
+        <!-- Status bar color. -->
+        <item name="android:statusBarColor">?attr/colorSurface</item>
+        <item name="android:windowLightStatusBar">true</item>
+        
+        <!-- Surface and background -->
+        <item name="android:windowBackground">@color/surface_light</item>
+        <item name="colorSurface">@color/surface_white</item>
+        <item name="colorOnSurface">@color/text_zinc_950</item>
+        <item name="colorSurfaceVariant">@color/surface_light</item>
+        <item name="colorOnSurfaceVariant">@color/text_zinc_500</item>
+
+        <!-- Glassmorphism values -->
+        <item name="colorGlassBackground">@color/glass_bg_light</item>
+        <item name="colorGlassStroke">@color/glass_stroke_light</item>
+
+        <!-- Auth Screen background -->
+        <item name="authScreenBackground">@drawable/bg_auth_light</item>
+
+        <!-- Typography -->
+        <item name="android:fontFamily">@font/font_primary</item>
+        <item name="textAppearanceHeadlineLarge">@style/TextAppearance.App.HeadlineLarge</item>
+        <item name="textAppearanceHeadlineMedium">@style/TextAppearance.App.HeadlineMedium</item>
+        <item name="textAppearanceHeadlineSmall">@style/TextAppearance.App.HeadlineSmall</item>
+        <item name="textAppearanceTitleLarge">@style/TextAppearance.App.TitleLarge</item>
+        <item name="textAppearanceTitleMedium">@style/TextAppearance.App.TitleMedium</item>
+        <item name="textAppearanceTitleSmall">@style/TextAppearance.App.TitleSmall</item>
+    </style>
+
+    <!-- Custom Typography Styles -->
+    <style name="TextAppearance.App.HeadlineLarge" parent="TextAppearance.Material3.HeadlineLarge">
+        <item name="android:fontFamily">@font/font_display</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="TextAppearance.App.HeadlineMedium" parent="TextAppearance.Material3.HeadlineMedium">
+        <item name="android:fontFamily">@font/font_display</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="TextAppearance.App.HeadlineSmall" parent="TextAppearance.Material3.HeadlineSmall">
+        <item name="android:fontFamily">@font/font_display</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="TextAppearance.App.TitleLarge" parent="TextAppearance.Material3.TitleLarge">
+        <item name="android:fontFamily">@font/font_display</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="TextAppearance.App.TitleMedium" parent="TextAppearance.Material3.TitleMedium">
+        <item name="android:fontFamily">@font/font_display</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="TextAppearance.App.TitleSmall" parent="TextAppearance.Material3.TitleSmall">
+        <item name="android:fontFamily">@font/font_display</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+
+    <style name="RoundedImageView">
+        <item name="cornerSize">16dp</item>
     </style>
 
     <style name="CircleImage">
         <item name="cornerSize">50%</item>
     </style>
 
-    <style name="LabelProfile">
-        <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">wrap_content</item>
-        <item name="android:textColor">#9CA3AF</item>
-        <item name="android:textSize">12sp</item>
-        <item name="android:layout_marginTop">16dp</item>
-        <item name="android:fontFamily">sans-serif</item>
+    <style name="TabTextAppearance" parent="TextAppearance.Design.Tab">
+        <item name="android:textSize">14sp</item>
+        <item name="android:textAllCaps">false</item>
+        <item name="android:fontFamily">sans-serif-medium</item>
+    </style>
+    
+    <!-- Modern Button Style -->
+    <style name="Widget.App.Button" parent="Widget.Material3.Button">
+        <item name="shapeAppearance">@style/ShapeAppearance.App.MediumComponent</item>
+        <item name="android:insetTop">0dp</item>
+        <item name="android:insetBottom">0dp</item>
+        <item name="android:paddingTop">12dp</item>
+        <item name="android:paddingBottom">12dp</item>
+        <item name="android:letterSpacing">0.02</item>
     </style>
 
-    <style name="EditProfile">
-        <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">wrap_content</item>
-        <item name="android:background">@android:color/transparent</item>
-        <item name="android:paddingVertical">8dp</item>
-        <item name="android:textColor">@color/black</item>
-        <item name="android:textSize">16sp</item>
-        <item name="android:textStyle">bold</item>
-    </style>
-
-    <style name="LineProfile">
-        <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">1dp</item>
-        <item name="android:background">#E5E7EB</item>
-        <item name="android:layout_marginBottom">4dp</item>
+    <style name="ShapeAppearance.App.MediumComponent" parent="ShapeAppearance.Material3.MediumComponent">
+        <item name="cornerSize">12dp</item>
     </style>
 
 </resources>

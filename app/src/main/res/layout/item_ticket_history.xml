@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginHorizontal="4dp"
+    android:layout_marginVertical="8dp"
+    app:cardBackgroundColor="?attr/colorSurface"
+    app:cardCornerRadius="16dp"
+    app:cardElevation="2dp"
+    app:strokeColor="?attr/colorSurfaceVariant"
+    app:strokeWidth="1dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="16dp">
+
+        <!-- Top Header Info -->
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <!-- Tourism Photo Avatar -->
+            <com.google.android.material.imageview.ShapeableImageView
+                android:id="@+id/ivWisataTicket"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:scaleType="centerCrop"
+                android:src="@drawable/hero"
+                app:shapeAppearanceOverlay="@style/RoundedImageView" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="14dp"
+                android:layout_toEndOf="@id/ivWisataTicket"
+                android:layout_toStartOf="@id/cvStatus"
+                android:orientation="vertical"
+                android:layout_centerVertical="true">
+
+                <TextView
+                    android:id="@+id/tvWisataName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="sans-serif-black"
+                    android:text="Kawah Putih Ciwidey"
+                    android:textColor="?attr/colorOnSurface"
+                    android:textSize="15sp"
+                    android:ellipsize="end"
+                    android:maxLines="1" />
+
+                <TextView
+                    android:id="@+id/tvKodeTiket"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="2dp"
+                    android:fontFamily="monospace"
+                    android:text="#TKT-928310"
+                    android:textColor="?attr/colorOnSurfaceVariant"
+                    android:textSize="11sp" />
+            </LinearLayout>
+
+            <!-- Status Card Badge -->
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/cvStatus"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                app:cardCornerRadius="6dp"
+                app:cardElevation="0dp"
+                app:strokeWidth="0dp">
+
+                <TextView
+                    android:id="@+id/tvStatus"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingHorizontal="8dp"
+                    android:paddingVertical="4dp"
+                    android:text="LUNAS"
+                    android:textColor="@color/white"
+                    android:textSize="10sp"
+                    android:fontFamily="sans-serif-black" />
+            </com.google.android.material.card.MaterialCardView>
+        </RelativeLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginVertical="14dp"
+            android:background="?attr/colorSurfaceVariant" />
+
+        <!-- Info Grid Details -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:weightSum="3">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="TANGGAL"
+                    android:textColor="?attr/colorOnSurfaceVariant"
+                    android:textSize="9sp"
+                    android:fontFamily="sans-serif-medium" />
+                <TextView
+                    android:id="@+id/tvTanggalKunjungan"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="2dp"
+                    android:text="12 Jun 2024"
+                    android:textColor="?attr/colorOnSurface"
+                    android:textSize="12sp"
+                    android:fontFamily="sans-serif-bold" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="JUMLAH"
+                    android:textColor="?attr/colorOnSurfaceVariant"
+                    android:textSize="9sp"
+                    android:fontFamily="sans-serif-medium" />
+                <TextView
+                    android:id="@+id/tvJumlahTiket"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="2dp"
+                    android:text="2 Tiket"
+                    android:textColor="?attr/colorOnSurface"
+                    android:textSize="12sp"
+                    android:fontFamily="sans-serif-bold" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="end"
+                android:orientation="vertical">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="TOTAL BAYAR"
+                    android:textColor="?attr/colorOnSurfaceVariant"
+                    android:textSize="9sp"
+                    android:fontFamily="sans-serif-medium" />
+                <TextView
+                    android:id="@+id/tvTotalBayar"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="2dp"
+                    android:text="Rp 74.000"
+                    android:textColor="?attr/colorPrimary"
+                    android:textSize="12sp"
+                    android:fontFamily="sans-serif-bold" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <!-- Dynamic Action Button -->
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnAction"
+            style="@style/Widget.App.Button"
+            android:layout_width="match_parent"
+            android:layout_height="44dp"
+            android:layout_marginTop="14dp"
+            android:text="Tampilkan QR Code"
+            android:textAllCaps="false"
+            android:textColor="@color/white"
+            android:textSize="13sp"
+            android:fontFamily="sans-serif-bold"
+            android:elevation="0dp"
+            app:cornerRadius="10dp"
+            android:visibility="gone" />
+
+    </LinearLayout>
+</com.google.android.material.card.MaterialCardView>

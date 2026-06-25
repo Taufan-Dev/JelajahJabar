@@ -1,93 +1,128 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.core.widget.NestedScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white">
+    android:background="?attr/android:windowBackground">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:paddingBottom="24dp">
 
+        <!-- Header Title -->
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Explore Wisata 🧭"
-            android:textSize="20sp"
-            android:textStyle="bold"
-            android:textColor="@color/black"
-            android:padding="20dp"/>
+            android:paddingHorizontal="24dp"
+            android:paddingTop="24dp"
+            android:text="Jelajahi Wisata 🧭"
+            android:textColor="?attr/colorOnSurface"
+            android:textSize="22sp"
+            android:fontFamily="sans-serif-black" />
 
+        <!-- Subtitle section -->
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Tempat Populer 🔥"
-            android:textSize="16sp"
-            android:textStyle="bold"
-            android:textColor="@color/black"
-            android:paddingStart="20dp"
-            android:paddingBottom="8dp"/>
+            android:layout_marginTop="24dp"
+            android:paddingHorizontal="24dp"
+            android:text="Rekomendasi Teratas 🔥"
+            android:textColor="?attr/colorOnSurface"
+            android:textSize="18sp"
+            android:fontFamily="sans-serif-black" />
 
+        <!-- Top popular list horizontal -->
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rvPopuler"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:paddingStart="16dp"
+            android:layout_marginTop="12dp"
             android:clipToPadding="false"
+            android:orientation="horizontal"
+            android:paddingHorizontal="16dp"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             tools:listitem="@layout/item_wisata_horizontal" />
 
+        <!-- Modern City Selector TabLayout (Directly on layout with a thin line below) -->
         <com.google.android.material.tabs.TabLayout
             android:id="@+id/tabCity"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:background="@color/white"
+            android:layout_height="48dp"
+            android:layout_marginTop="28dp"
+            android:layout_marginHorizontal="24dp"
+            android:background="@android:color/transparent"
+            app:tabIndicatorColor="?attr/colorPrimary"
+            app:tabIndicatorFullWidth="false"
+            app:tabIndicatorHeight="3dp"
             app:tabMode="scrollable"
-            app:tabSelectedTextColor="#1BBA85"
-            app:tabTextColor="#9CA3AF"
-            app:tabIndicatorColor="#1BBA85"
-            app:tabIndicatorHeight="3dp"/>
+            app:tabRippleColor="@android:color/transparent"
+            app:tabSelectedTextColor="?attr/colorPrimary"
+            app:tabTextAppearance="@style/TabTextAppearance"
+            app:tabTextColor="?attr/colorOnSurfaceVariant" />
 
+        <!-- Divider below TabLayout -->
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginHorizontal="24dp"
+            android:background="?attr/colorSurfaceVariant" />
+
+        <!-- Main explore section with FrameLayout -->
         <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:minHeight="300dp">
 
+            <!-- Grid/List recycler for city tourism items -->
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rvExplore"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:clipToPadding="false"
                 android:nestedScrollingEnabled="false"
-                android:padding="8dp"/>
+                android:padding="16dp" />
 
+            <!-- Empty state layout if no items match -->
             <LinearLayout
                 android:id="@+id/layoutEmptyExplore"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="60dp"
                 android:gravity="center"
                 android:orientation="vertical"
                 android:padding="32dp"
                 android:visibility="gone">
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Wisata Tidak Ditemukan 🔍"
-                    android:textColor="@color/black"
-                    android:textSize="16sp"
-                    android:textStyle="bold" />
+                <ImageView
+                    android:layout_width="72dp"
+                    android:layout_height="72dp"
+                    android:alpha="0.4"
+                    android:src="@android:drawable/ic_menu_search"
+                    app:tint="?attr/colorOnSurfaceVariant" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="4dp"
+                    android:layout_marginTop="16dp"
+                    android:text="Tidak Ada Hasil 🔍"
+                    android:textColor="?attr/colorOnSurface"
+                    android:textSize="18sp"
+                    android:fontFamily="sans-serif-bold" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
                     android:gravity="center"
-                    android:text="Belum ada destinasi untuk wilayah atau kategori ini."
-                    android:textColor="#9CA3AF"
-                    android:textSize="14sp" />
+                    android:text="Coba wilayah lain untuk menemukan destinasi menarik."
+                    android:textColor="?attr/colorOnSurfaceVariant"
+                    android:textSize="14sp"
+                    android:fontFamily="sans-serif" />
             </LinearLayout>
         </FrameLayout>
 

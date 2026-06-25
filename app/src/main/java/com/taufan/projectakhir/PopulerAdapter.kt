@@ -22,18 +22,13 @@ class PopulerAdapter(private val listPopuler: List<Wisata>) :
     override fun onBindViewHolder(holder: PopulerViewHolder, position: Int) {
         val data = listPopuler[position]
         holder.binding.apply {
-            tvNamaPopuler.text = data.nama
-            tvLokasiPopuler.text = "📍 ${data.lokasi}"
+            // Sinkronisasi ID dengan item_wisata_horizontal.xml
+            tvNamaWisata.text = data.nama
+            tvLokasi.text = "📍 ${data.kota}"
+            tvHarga.text = data.harga
+            tvRating.text = data.rating.replace("(", "").replace(")", "")
             
-            if (!data.gambarUrl.isNullOrEmpty()) {
-                com.bumptech.glide.Glide.with(ivPopuler.context)
-                    .load(data.gambarUrl)
-                    .placeholder(data.gambar)
-                    .error(data.gambar)
-                    .into(ivPopuler)
-            } else {
-                ivPopuler.setImageResource(data.gambar)
-            }
+            GlideHelper.loadImage(ivWisata, data.gambarUrl, data.gambar)
 
             // Klik kartu untuk ke Detail
             root.setOnClickListener {

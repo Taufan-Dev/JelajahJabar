@@ -15,17 +15,6 @@ class SplashScreen : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContentView(R.layout.activity_splash_screen)
-
-        // Global Crash Handler untuk mendeteksi crash sejak awal aplikasi dijalankan
-        Thread.setDefaultUncaughtExceptionHandler { _, throwable ->
-            val intentCrash = Intent(this, LoginActivity::class.java).apply {
-                putExtra("CRASH_ERROR", throwable.stackTraceToString())
-                flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-            }
-            startActivity(intentCrash)
-            android.os.Process.killProcess(android.os.Process.myPid())
-            java.lang.System.exit(10)
-        }
         
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
@@ -44,14 +33,9 @@ class SplashScreen : AppCompatActivity() {
             .setDuration(100)
             .start()
 
-        // Pindah ke MainActivity jika sudah login, atau OnboardingActivity jika belum
+        // Pindah ke OnboardingActivity setelah 2 detik
         Handler(Looper.getMainLooper()).postDelayed({
-            val sessionManager = com.taufan.projectakhir.api.SessionManager(this)
-            val intent = if (sessionManager.isLoggedIn()) {
-                Intent(this, MainActivity::class.java)
-            } else {
-                Intent(this, OnboardingActivity::class.java)
-            }
+            val intent = Intent(this, OnboardingActivity::class.java)
             startActivity(intent)
             finish()
         }, 2000)

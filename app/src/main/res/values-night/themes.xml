@@ -2,16 +2,74 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
 
     <style name="Theme.ProjectAkhir" parent="Theme.Material3.DayNight.NoActionBar">
-        <item name="colorPrimary">@color/green_primary</item>
-        <item name="colorSecondary">@color/green_primary</item>
-        <item name="colorTertiary">@color/green_primary</item>
+        <!-- Primary brand color. -->
+        <item name="colorPrimary">@color/brand_primary</item>
+        <item name="colorOnPrimary">@color/white</item>
+        <item name="colorPrimaryContainer">@color/brand_primary_variant</item>
+        <item name="colorOnPrimaryContainer">@color/white</item>
 
-        <item name="android:statusBarColor">#121212</item>
+        <!-- Secondary brand color. -->
+        <item name="colorSecondary">@color/brand_primary</item>
+        <item name="colorOnSecondary">@color/white</item>
+
+        <!-- Status bar color. -->
+        <item name="android:statusBarColor">?attr/colorSurface</item>
         <item name="android:windowLightStatusBar">false</item>
+        
+        <!-- Surface and background -->
+        <item name="android:windowBackground">@color/surface_dark</item>
+        <item name="colorSurface">@color/surface_dark</item>
+        <item name="colorOnSurface">@color/text_zinc_50</item>
+        <item name="colorSurfaceVariant">@color/surface_dark_card</item>
+        <item name="colorOnSurfaceVariant">@color/text_zinc_400</item>
+
+        <!-- Glassmorphism values -->
+        <item name="colorGlassBackground">@color/glass_bg_dark</item>
+        <item name="colorGlassStroke">@color/glass_stroke_dark</item>
+
+        <!-- Auth Screen background -->
+        <item name="authScreenBackground">@drawable/bg_auth_dark</item>
+
+        <!-- Typography -->
+        <item name="android:fontFamily">@font/font_primary</item>
+        <item name="textAppearanceHeadlineLarge">@style/TextAppearance.App.HeadlineLarge</item>
+        <item name="textAppearanceHeadlineMedium">@style/TextAppearance.App.HeadlineMedium</item>
+        <item name="textAppearanceHeadlineSmall">@style/TextAppearance.App.HeadlineSmall</item>
+        <item name="textAppearanceTitleLarge">@style/TextAppearance.App.TitleLarge</item>
+        <item name="textAppearanceTitleMedium">@style/TextAppearance.App.TitleMedium</item>
+        <item name="textAppearanceTitleSmall">@style/TextAppearance.App.TitleSmall</item>
     </style>
 
-    <style name="CircleImage">
-        <item name="cornerSize">50%</item>
+    <!-- Custom Typography Styles -->
+    <style name="TextAppearance.App.HeadlineLarge" parent="TextAppearance.Material3.HeadlineLarge">
+        <item name="android:fontFamily">@font/font_display</item>
+        <item name="android:textStyle">bold</item>
     </style>
+
+    <style name="TextAppearance.App.HeadlineMedium" parent="TextAppearance.Material3.HeadlineMedium">
+        <item name="android:fontFamily">@font/font_display</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="TextAppearance.App.HeadlineSmall" parent="TextAppearance.Material3.HeadlineSmall">
+        <item name="android:fontFamily">@font/font_display</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="TextAppearance.App.TitleLarge" parent="TextAppearance.Material3.TitleLarge">
+        <item name="android:fontFamily">@font/font_display</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="TextAppearance.App.TitleMedium" parent="TextAppearance.Material3.TitleMedium">
+        <item name="android:fontFamily">@font/font_display</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="TextAppearance.App.TitleSmall" parent="TextAppearance.Material3.TitleSmall">
+        <item name="android:fontFamily">@font/font_display</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
 
 </resources>

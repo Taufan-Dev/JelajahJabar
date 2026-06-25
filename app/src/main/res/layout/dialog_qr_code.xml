@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="24dp"
+    app:cardBackgroundColor="?attr/colorSurface"
+    app:cardCornerRadius="28dp"
+    app:cardElevation="8dp"
+    app:strokeWidth="1dp"
+    app:strokeColor="?attr/colorSurfaceVariant">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="24dp"
+        android:gravity="center_horizontal">
+
+        <!-- Top visual handle -->
+        <View
+            android:layout_width="40dp"
+            android:layout_height="4dp"
+            android:background="?attr/colorOnSurfaceVariant"
+            android:alpha="0.2"
+            android:layout_marginBottom="20dp" />
+
+        <!-- Header Icon & Title -->
+        <ImageView
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:src="@android:drawable/ic_menu_agenda"
+            app:tint="?attr/colorPrimary"
+            android:layout_marginBottom="12dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="E-Tiket Masuk 🎫"
+            android:textColor="?attr/colorOnSurface"
+            android:textSize="20sp"
+            android:fontFamily="sans-serif-black"
+            android:layout_marginBottom="4dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Tunjukkan QR Code ini pada petugas loket"
+            android:textColor="?attr/colorOnSurfaceVariant"
+            android:textSize="13sp"
+            android:fontFamily="sans-serif"
+            android:gravity="center"
+            android:layout_marginBottom="24dp" />
+
+        <!-- QR Scanner Box Container -->
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="220dp"
+            android:layout_height="220dp"
+            app:cardCornerRadius="16dp"
+            app:cardElevation="0dp"
+            app:cardBackgroundColor="?attr/colorSurfaceVariant"
+            app:strokeWidth="1.5dp"
+            app:strokeColor="?attr/colorPrimary"
+            android:layout_marginBottom="20dp">
+
+            <android.webkit.WebView
+                android:id="@+id/wvQrCode"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@android:color/transparent" />
+
+            <!-- Simple loading indicator inside QR box -->
+            <com.google.android.material.progressindicator.CircularProgressIndicator
+                android:id="@+id/pbQrLoading"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:indeterminate="true"
+                app:indicatorColor="?attr/colorPrimary"
+                app:trackThickness="3dp" />
+        </com.google.android.material.card.MaterialCardView>
+
+        <!-- Kode Tiket Badge -->
+        <TextView
+            android:id="@+id/tvDialogKodeTiket"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="TIK-XXXX-YYYY"
+            android:textColor="?attr/colorOnSurface"
+            android:textSize="16sp"
+            android:fontFamily="monospace"
+            android:textStyle="bold"
+            android:background="@drawable/bg_indicator_rounded"
+            android:backgroundTint="?attr/colorSurfaceVariant"
+            android:paddingHorizontal="16dp"
+            android:paddingVertical="6dp"
+            android:layout_marginBottom="28dp" />
+
+        <!-- Action Button -->
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnDialogClose"
+            style="@style/Widget.App.Button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Tutup"
+            android:textAllCaps="false"
+            android:textColor="@color/white"
+            android:backgroundTint="?attr/colorPrimary" />
+
+    </LinearLayout>
+</com.google.android.material.card.MaterialCardView>

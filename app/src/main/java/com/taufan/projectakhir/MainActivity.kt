@@ -5,6 +5,8 @@ import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowInsetsCompat
 import com.taufan.projectakhir.api.SessionManager
 import com.taufan.projectakhir.databinding.ActivityMainBinding
 
@@ -17,6 +19,12 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        ViewCompat.setOnApplyWindowInsetsListener(binding.main) { v, insets ->
+            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
+            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
+            insets
+        }
 
         sessionManager = SessionManager(this)
 
@@ -35,18 +43,22 @@ class MainActivity : AppCompatActivity() {
         binding.bottomNavigation.setOnItemSelectedListener { item ->
             when (item.itemId) {
                 R.id.navigation_home -> {
+                    binding.headerContent.visibility = android.view.View.VISIBLE
                     loadFragment(HomeFragment())
                     true
                 }
                 R.id.navigation_explore -> {
+                    binding.headerContent.visibility = android.view.View.GONE
                     loadFragment(ExploreFragment())
                     true
                 }
                 R.id.navigation_favorite -> {
+                    binding.headerContent.visibility = android.view.View.GONE
                     loadFragment(FavoriteFragment())
                     true
                 }
                 R.id.navigation_profile -> {
+                    binding.headerContent.visibility = android.view.View.GONE
                     loadFragment(ProfileFragment())
                     true
                 }
@@ -80,6 +92,20 @@ class MainActivity : AppCompatActivity() {
             .setTitle("Keluar Aplikasi")
             .setMessage("Apakah Anda yakin ingin keluar dari akun Anda?")
             .setPositiveButton("Ya, Keluar") { _, _ ->
+                val token = sessionManager.getToken()
+                if (!token.isNullOrEmpty()) {
+                    com.taufan.projectakhir.api.RetrofitClient.instance.logout("Bearer $token")
+                        .enqueue(object : retrofit2.Callback<com.taufan.projectakhir.api.SimpleResponse> {
+                            override fun onResponse(
+                                call: retrofit2.Call<com.taufan.projectakhir.api.SimpleResponse>,
+                                response: retrofit2.Response<com.taufan.projectakhir.api.SimpleResponse>
+                            ) {}
+                            override fun onFailure(
+                                call: retrofit2.Call<com.taufan.projectakhir.api.SimpleResponse>,
+                                t: Throwable
+                            ) {}
+                        })
+                }
                 sessionManager.clearSession()
                 Toast.makeText(this, "Anda telah keluar dari aplikasi 👋", Toast.LENGTH_SHORT).show()
                 val intent = Intent(this, LoginActivity::class.java)

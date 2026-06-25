@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="?attr/android:windowBackground"
+    android:id="@+id/main">
+
+    <!-- Header bar -->
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="?attr/colorSurface"
+        android:elevation="4dp"
+        android:paddingHorizontal="16dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:text="Pembayaran Midtrans Snap"
+            android:textColor="?attr/colorOnSurface"
+            android:textSize="18sp"
+            android:fontFamily="sans-serif-black" />
+
+        <ImageView
+            android:id="@+id/btnClosePayment"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:src="@android:drawable/ic_menu_close_clear_cancel"
+            app:tint="?attr/colorOnSurface"
+            android:clickable="true"
+            android:focusable="true"/>
+    </RelativeLayout>
+
+    <!-- Main Payment WebView -->
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <android.webkit.WebView
+            android:id="@+id/wvPayment"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+        <ProgressBar
+            android:id="@+id/pbPayment"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:indeterminateTint="#1BBA85" />
+    </FrameLayout>
+
+    <!-- Bottom simulator button for testing convenience -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="16dp"
+        android:background="?attr/colorSurfaceVariant">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Fasilitas Sandbox Developer:"
+            android:textColor="?attr/colorOnSurfaceVariant"
+            android:textSize="12sp"
+            android:fontFamily="sans-serif-bold"
+            android:gravity="center"
+            android:layout_marginBottom="8dp"/>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnSimulateSuccess"
+            style="@style/Widget.App.Button"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:backgroundTint="#FF9800"
+            android:text="Simulasikan Bayar Lunas"
+            android:textAllCaps="false"
+            android:textColor="@color/white"
+            android:fontFamily="sans-serif-bold"
+            app:cornerRadius="12dp"
+            android:elevation="0dp" />
+    </LinearLayout>
+
+</LinearLayout>

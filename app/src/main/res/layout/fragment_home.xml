@@ -1,205 +1,284 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.core.widget.NestedScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white">
+    android:fillViewport="true"
+    android:background="?attr/android:windowBackground">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:padding="20dp">
+        android:paddingBottom="32dp">
 
-        <androidx.cardview.widget.CardView
+        <!-- Search Bar Section -->
+        <com.google.android.material.card.MaterialCardView
             android:layout_width="match_parent"
-            android:layout_height="180dp"
-            app:cardCornerRadius="16dp"
-            app:cardElevation="0dp">
-            <ImageView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:scaleType="centerCrop"
-                android:src="@drawable/hero" />
-        </androidx.cardview.widget.CardView>
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="24dp"
+            android:layout_marginTop="16dp"
+            app:cardBackgroundColor="?attr/colorGlassBackground"
+            app:cardCornerRadius="28dp"
+            app:cardElevation="4dp"
+            app:strokeColor="?attr/colorGlassStroke"
+            app:strokeWidth="1.5dp">
 
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="52dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingHorizontal="20dp">
+
+                <ImageView
+                    android:layout_width="18dp"
+                    android:layout_height="18dp"
+                    android:src="@android:drawable/ic_menu_search"
+                    app:tint="?attr/colorOnSurfaceVariant" />
+
+                <EditText
+                    android:id="@+id/et_search_home"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="12dp"
+                    android:background="@android:color/transparent"
+                    android:hint="Cari destinasi impianmu..."
+                    android:textColor="?attr/colorOnSurface"
+                    android:textColorHint="?attr/colorOnSurfaceVariant"
+                    android:textSize="14sp"
+                    android:fontFamily="sans-serif"
+                    android:imeOptions="actionSearch"
+                    android:inputType="text" />
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <!-- Category Horizontal Scroll -->
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Kategori"
-            android:textColor="@color/black"
-            android:textSize="18sp"
+            android:layout_marginHorizontal="24dp"
+            android:layout_marginTop="28dp"
+            android:fontFamily="@font/font_display"
             android:textStyle="bold"
-            android:layout_marginTop="20dp"/>
+            android:text="Kategori Wisata"
+            android:textColor="?attr/colorOnSurface"
+            android:textSize="20sp"
+            android:letterSpacing="-0.01" />
 
-        <LinearLayout
+        <HorizontalScrollView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginTop="12dp"
-            android:weightSum="4">
+            android:layout_marginTop="16dp"
+            android:clipToPadding="false"
+            android:paddingHorizontal="24dp"
+            android:scrollbars="none">
 
             <LinearLayout
-                android:id="@+id/btnCategoryGunung"
-                android:layout_width="0dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:orientation="vertical"
-                android:clickable="true"
-                android:focusable="true"
-                android:background="?attr/selectableItemBackground">
-                <androidx.cardview.widget.CardView
-                    android:id="@+id/cvCategoryGunung"
-                    android:layout_width="65dp"
-                    android:layout_height="65dp"
-                    app:cardBackgroundColor="#F8FDFB"
-                    app:cardCornerRadius="12dp"
-                    app:cardElevation="0dp">
-                    <ImageView
-                        android:layout_width="35dp"
-                        android:layout_height="35dp"
-                        android:layout_gravity="center"
-                        android:src="@drawable/ic_gunung" />
-                </androidx.cardview.widget.CardView>
-                <TextView
+                android:orientation="horizontal"
+                android:paddingBottom="8dp">
+
+                <!-- Gunung -->
+                <LinearLayout
+                    android:id="@+id/btnCategoryGunung"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Gunung"
-                    android:layout_marginTop="8dp"
-                    android:textColor="@color/black"
-                    android:textSize="12sp"/>
-            </LinearLayout>
+                    android:layout_marginEnd="20dp"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    android:clickable="true"
+                    android:focusable="true">
 
-            <LinearLayout
-                android:id="@+id/btnCategoryPantai"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:orientation="vertical"
-                android:clickable="true"
-                android:focusable="true"
-                android:background="?attr/selectableItemBackground">
-                <androidx.cardview.widget.CardView
-                    android:id="@+id/cvCategoryPantai"
-                    android:layout_width="65dp"
-                    android:layout_height="65dp"
-                    app:cardBackgroundColor="#F8FDFB"
-                    app:cardCornerRadius="12dp"
-                    app:cardElevation="0dp">
-                    <ImageView
-                        android:layout_width="35dp"
-                        android:layout_height="35dp"
-                        android:layout_gravity="center"
-                        android:src="@drawable/ic_pantai" />
-                </androidx.cardview.widget.CardView>
-                <TextView
+                    <com.google.android.material.card.MaterialCardView
+                        android:id="@+id/cvCategoryGunung"
+                        android:layout_width="56dp"
+                        android:layout_height="56dp"
+                        app:cardBackgroundColor="?attr/colorGlassBackground"
+                        app:cardCornerRadius="28dp"
+                        app:cardElevation="3dp"
+                        app:strokeColor="?attr/colorGlassStroke"
+                        app:strokeWidth="1.5dp">
+
+                        <ImageView
+                            android:layout_width="24dp"
+                            android:layout_height="24dp"
+                            android:layout_gravity="center"
+                            android:src="@drawable/ic_gunung"
+                            app:tint="?attr/colorPrimary" />
+                    </com.google.android.material.card.MaterialCardView>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:text="Gunung"
+                        android:textColor="?attr/colorOnSurface"
+                        android:textSize="12sp"
+                        android:fontFamily="sans-serif-medium" />
+                </LinearLayout>
+
+                <!-- Pantai -->
+                <LinearLayout
+                    android:id="@+id/btnCategoryPantai"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Pantai"
-                    android:layout_marginTop="8dp"
-                    android:textColor="@color/black"
-                    android:textSize="12sp"/>
-            </LinearLayout>
+                    android:layout_marginEnd="20dp"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    android:clickable="true"
+                    android:focusable="true">
 
-            <LinearLayout
-                android:id="@+id/btnCategoryCurug"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:orientation="vertical"
-                android:clickable="true"
-                android:focusable="true"
-                android:background="?attr/selectableItemBackground">
-                <androidx.cardview.widget.CardView
-                    android:id="@+id/cvCategoryCurug"
-                    android:layout_width="65dp"
-                    android:layout_height="65dp"
-                    app:cardBackgroundColor="#F8FDFB"
-                    app:cardCornerRadius="12dp"
-                    app:cardElevation="0dp">
-                    <ImageView
-                        android:layout_width="35dp"
-                        android:layout_height="35dp"
-                        android:layout_gravity="center"
-                        android:src="@drawable/ic_airterjun" />
-                </androidx.cardview.widget.CardView>
-                <TextView
+                    <com.google.android.material.card.MaterialCardView
+                        android:id="@+id/cvCategoryPantai"
+                        android:layout_width="56dp"
+                        android:layout_height="56dp"
+                        app:cardBackgroundColor="?attr/colorGlassBackground"
+                        app:cardCornerRadius="28dp"
+                        app:cardElevation="3dp"
+                        app:strokeColor="?attr/colorGlassStroke"
+                        app:strokeWidth="1.5dp">
+
+                        <ImageView
+                            android:layout_width="24dp"
+                            android:layout_height="24dp"
+                            android:layout_gravity="center"
+                            android:src="@drawable/ic_pantai"
+                            app:tint="?attr/colorPrimary" />
+                    </com.google.android.material.card.MaterialCardView>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:text="Pantai"
+                        android:textColor="?attr/colorOnSurface"
+                        android:textSize="12sp"
+                        android:fontFamily="sans-serif-medium" />
+                </LinearLayout>
+
+                <!-- Curug -->
+                <LinearLayout
+                    android:id="@+id/btnCategoryCurug"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Curug"
-                    android:layout_marginTop="8dp"
-                    android:textColor="@color/black"
-                    android:textSize="12sp"/>
-            </LinearLayout>
+                    android:layout_marginEnd="20dp"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    android:clickable="true"
+                    android:focusable="true">
 
-            <LinearLayout
-                android:id="@+id/btnCategoryDanau"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:orientation="vertical"
-                android:clickable="true"
-                android:focusable="true"
-                android:background="?attr/selectableItemBackground">
-                <androidx.cardview.widget.CardView
-                    android:id="@+id/cvCategoryDanau"
-                    android:layout_width="65dp"
-                    android:layout_height="65dp"
-                    app:cardBackgroundColor="#F8FDFB"
-                    app:cardCornerRadius="12dp"
-                    app:cardElevation="0dp">
-                    <ImageView
-                        android:layout_width="35dp"
-                        android:layout_height="35dp"
-                        android:layout_gravity="center"
-                        android:src="@drawable/ic_danau" />
-                </androidx.cardview.widget.CardView>
-                <TextView
+                    <com.google.android.material.card.MaterialCardView
+                        android:id="@+id/cvCategoryCurug"
+                        android:layout_width="56dp"
+                        android:layout_height="56dp"
+                        app:cardBackgroundColor="?attr/colorGlassBackground"
+                        app:cardCornerRadius="28dp"
+                        app:cardElevation="3dp"
+                        app:strokeColor="?attr/colorGlassStroke"
+                        app:strokeWidth="1.5dp">
+
+                        <ImageView
+                            android:layout_width="24dp"
+                            android:layout_height="24dp"
+                            android:layout_gravity="center"
+                            android:src="@drawable/ic_airterjun"
+                            app:tint="?attr/colorPrimary" />
+                    </com.google.android.material.card.MaterialCardView>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:text="Curug"
+                        android:textColor="?attr/colorOnSurface"
+                        android:textSize="12sp"
+                        android:fontFamily="sans-serif-medium" />
+                </LinearLayout>
+
+                <!-- Danau -->
+                <LinearLayout
+                    android:id="@+id/btnCategoryDanau"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Danau"
-                    android:layout_marginTop="8dp"
-                    android:textColor="@color/black"
-                    android:textSize="12sp"/>
-            </LinearLayout>
-        </LinearLayout>
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    android:clickable="true"
+                    android:focusable="true">
 
+                    <com.google.android.material.card.MaterialCardView
+                        android:id="@+id/cvCategoryDanau"
+                        android:layout_width="56dp"
+                        android:layout_height="56dp"
+                        app:cardBackgroundColor="?attr/colorGlassBackground"
+                        app:cardCornerRadius="28dp"
+                        app:cardElevation="3dp"
+                        app:strokeColor="?attr/colorGlassStroke"
+                        app:strokeWidth="1.5dp">
+
+                        <ImageView
+                            android:layout_width="24dp"
+                            android:layout_height="24dp"
+                            android:layout_gravity="center"
+                            android:src="@drawable/ic_danau"
+                            app:tint="?attr/colorPrimary" />
+                    </com.google.android.material.card.MaterialCardView>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:text="Danau"
+                        android:textColor="?attr/colorOnSurface"
+                        android:textSize="12sp"
+                        android:fontFamily="sans-serif-medium" />
+                </LinearLayout>
+            </LinearLayout>
+        </HorizontalScrollView>
+
+        <!-- Popular Section Header -->
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="24dp">
+            android:layout_marginHorizontal="24dp"
+            android:layout_marginTop="28dp">
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Tempat Populer"
-                android:textColor="@color/black"
-                android:textSize="18sp"
-                android:textStyle="bold" />
+                android:fontFamily="@font/font_display"
+                android:textStyle="bold"
+                android:text="Destinasi Populer"
+                android:textColor="?attr/colorOnSurface"
+                android:textSize="20sp"
+                android:letterSpacing="-0.01" />
+
             <TextView
                 android:id="@+id/tv_lihat_semua"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
-                android:text="Lihat semua"
-                android:textColor="#1BBA85"
-                android:textStyle="bold"
+                android:layout_centerVertical="true"
+                android:text="Lihat Semua"
+                android:textColor="?attr/colorPrimary"
+                android:textSize="13sp"
+                android:fontFamily="@font/font_primary"
+                android:textStyle="bold|italic"
                 android:clickable="true"
-                android:focusable="true"/>
+                android:focusable="true" />
         </RelativeLayout>
 
+        <!-- Popular Destination list -->
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rvPopuler"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="8dp"
             android:clipToPadding="false"
-            android:orientation="horizontal"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            android:paddingHorizontal="16dp"
             tools:listitem="@layout/item_wisata_horizontal" />
 
     </LinearLayout>

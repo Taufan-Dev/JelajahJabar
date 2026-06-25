@@ -1,200 +1,307 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#F9FAFB"
-    android:orientation="vertical">
+    android:background="?attr/android:windowBackground">
 
+    <!-- Top gradient header banner -->
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="120dp"
+        android:background="@drawable/bg_gradient_primary"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <!-- Custom Toolbar -->
     <RelativeLayout
+        android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
-        android:background="@color/white"
         android:paddingHorizontal="16dp"
-        android:elevation="2dp">
+        app:layout_constraintTop_toTopOf="parent">
+
         <ImageView
             android:id="@+id/btnBack"
-            android:layout_width="24dp"
-            android:layout_height="24dp"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
             android:layout_centerVertical="true"
-            android:src="@drawable/ic_back" />
+            android:padding="4dp"
+            android:src="@drawable/ic_back"
+            app:tint="@color/white"
+            android:clickable="true"
+            android:focusable="true"/>
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
-            android:text="Konfirmasi Pembayaran"
-            android:textColor="@color/black"
+            android:text="Detail Pemesanan"
+            android:textColor="@color/white"
             android:textSize="18sp"
-            android:textStyle="bold" />
+            android:fontFamily="sans-serif-black" />
     </RelativeLayout>
 
+    <!-- Scrollable content (dynamically fills remaining viewport space) -->
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1">
+        android:clipToPadding="false"
+        android:fillViewport="true"
+        app:layout_constraintBottom_toTopOf="@+id/layoutBottom"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:padding="16dp">
+            android:padding="20dp">
 
+            <!-- Included Wisata Favorite card -->
             <include
                 android:id="@+id/cardWisata"
-                layout="@layout/item_wisata_favorite" />
+                layout="@layout/item_wisata_favorite"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
 
+            <!-- Payment Summary Card -->
             <com.google.android.material.card.MaterialCardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                app:cardBackgroundColor="@color/white"
-                app:cardCornerRadius="12dp"
+                android:layout_marginTop="20dp"
+                app:cardBackgroundColor="?attr/colorSurface"
+                app:cardCornerRadius="20dp"
                 app:cardElevation="2dp"
-                app:strokeWidth="0dp">
+                app:strokeWidth="1dp"
+                app:strokeColor="?attr/colorSurfaceVariant">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
-                    android:padding="16dp">
+                    android:padding="20dp">
+
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Ringkasan"
-                        android:textStyle="bold"
+                        android:text="Ringkasan Pembayaran"
+                        android:textColor="?attr/colorOnSurface"
                         android:textSize="16sp"
-                        android:textColor="@color/black"/>
+                        android:fontFamily="sans-serif-black" />
 
-                    <RelativeLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="12dp">
-                        <TextView android:text="Harga Tiket" android:layout_width="wrap_content" android:layout_height="wrap_content"/>
-                        <TextView android:id="@+id/tvHargaTiket" android:text="Rp 20.000" android:layout_alignParentEnd="true" android:layout_width="wrap_content" android:layout_height="wrap_content" android:textColor="@color/black"/>
+                    <!-- Ticket Price Row -->
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="16dp">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Harga Tiket"
+                            android:textColor="?attr/colorOnSurfaceVariant"
+                            android:fontFamily="sans-serif-medium" />
+
+                        <TextView
+                            android:id="@+id/tvHargaTiket"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentEnd="true"
+                            android:text="Rp 35.000"
+                            android:textColor="?attr/colorOnSurface"
+                            android:fontFamily="sans-serif-bold" />
                     </RelativeLayout>
 
-                    <RelativeLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="8dp">
-                        <TextView android:text="Biaya Layanan" android:layout_width="wrap_content" android:layout_height="wrap_content"/>
-                        <TextView android:text="Rp 4.000" android:layout_alignParentEnd="true" android:layout_width="wrap_content" android:layout_height="wrap_content" android:textColor="@color/black"/>
+                    <!-- Ticket Count Adjuster Row -->
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="12dp">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:text="Jumlah Tiket"
+                            android:textColor="?attr/colorOnSurfaceVariant"
+                            android:fontFamily="sans-serif-medium" />
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentEnd="true"
+                            android:gravity="center_vertical"
+                            android:orientation="horizontal">
+
+                            <!-- Minus button card -->
+                            <com.google.android.material.card.MaterialCardView
+                                android:id="@+id/btnMinus"
+                                android:layout_width="32dp"
+                                android:layout_height="32dp"
+                                app:cardBackgroundColor="?attr/colorSurfaceVariant"
+                                app:cardCornerRadius="8dp"
+                                app:cardElevation="0dp"
+                                app:strokeWidth="0dp">
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="center"
+                                    android:text="-"
+                                    android:textColor="?attr/colorOnSurface"
+                                    android:textSize="18sp"
+                                    android:fontFamily="sans-serif-bold" />
+                            </com.google.android.material.card.MaterialCardView>
+
+                            <!-- Current Ticket Count -->
+                            <TextView
+                                android:id="@+id/tvJumlahTiket"
+                                android:layout_width="40dp"
+                                android:layout_height="wrap_content"
+                                android:gravity="center"
+                                android:text="1"
+                                android:textColor="?attr/colorOnSurface"
+                                android:textSize="16sp"
+                                android:fontFamily="sans-serif-black" />
+
+                            <!-- Plus button card -->
+                            <com.google.android.material.card.MaterialCardView
+                                android:id="@+id/btnPlus"
+                                android:layout_width="32dp"
+                                android:layout_height="32dp"
+                                app:cardBackgroundColor="?attr/colorPrimaryContainer"
+                                app:cardCornerRadius="8dp"
+                                app:cardElevation="0dp"
+                                app:strokeWidth="0dp">
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="center"
+                                    android:text="+"
+                                    android:textColor="?attr/colorPrimary"
+                                    android:textSize="18sp"
+                                    android:fontFamily="sans-serif-bold" />
+                            </com.google.android.material.card.MaterialCardView>
+                        </LinearLayout>
                     </RelativeLayout>
 
-                    <View android:layout_width="match_parent" android:layout_height="1dp" android:background="#E5E7EB" android:layout_marginVertical="16dp"/>
 
-                    <RelativeLayout android:layout_width="match_parent" android:layout_height="wrap_content">
-                        <TextView android:text="Total Pembayaran" android:textStyle="bold" android:layout_width="wrap_content" android:layout_height="wrap_content" android:textColor="@color/black"/>
-                        <TextView android:id="@+id/tvTotalBayar" android:text="Rp 24.000" android:textStyle="bold" android:layout_alignParentEnd="true" android:layout_width="wrap_content" android:layout_height="wrap_content" android:textColor="@color/black"/>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_marginVertical="16dp"
+                        android:background="?attr/colorSurfaceVariant" />
+
+                    <!-- Total Pay Row -->
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Total Bayar"
+                            android:textColor="?attr/colorOnSurface"
+                            android:textSize="16sp"
+                            android:fontFamily="sans-serif-black" />
+
+                        <TextView
+                            android:id="@+id/tvTotalBayar"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentEnd="true"
+                            android:text="Rp 39.000"
+                            android:textColor="?attr/colorPrimary"
+                            android:textSize="18sp"
+                            android:fontFamily="sans-serif-black" />
                     </RelativeLayout>
                 </LinearLayout>
             </com.google.android.material.card.MaterialCardView>
 
+            <!-- Visit Date Selection Card -->
             <com.google.android.material.card.MaterialCardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
-                app:cardBackgroundColor="@color/white"
-                app:cardCornerRadius="12dp"
+                app:cardBackgroundColor="?attr/colorSurface"
+                app:cardCornerRadius="20dp"
                 app:cardElevation="2dp"
-                app:strokeWidth="0dp">
+                app:strokeWidth="1dp"
+                app:strokeColor="?attr/colorSurfaceVariant">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
-                    android:padding="16dp">
+                    android:padding="20dp">
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Pilih Tanggal Kunjungan"
-                        android:textStyle="bold"
+                        android:textColor="?attr/colorOnSurface"
                         android:textSize="16sp"
-                        android:textColor="@color/black"/>
+                        android:fontFamily="sans-serif-black" />
 
-                    <RelativeLayout
+                    <!-- Calendar Selector Input Area -->
+                    <LinearLayout
                         android:id="@+id/btnPilihTanggal"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="12dp"
-                        android:background="@drawable/bg_input_pembayaran"
-                        android:padding="12dp"
+                        android:layout_height="56dp"
+                        android:layout_marginTop="16dp"
+                        android:background="@drawable/bg_input_rounded"
+                        android:backgroundTint="?attr/colorSurfaceVariant"
+                        android:gravity="center_vertical"
+                        android:paddingHorizontal="16dp"
                         android:clickable="true"
                         android:focusable="true">
 
                         <ImageView
-                            android:id="@+id/ivCalendar"
                             android:layout_width="20dp"
                             android:layout_height="20dp"
                             android:src="@android:drawable/ic_menu_my_calendar"
-                            android:layout_centerVertical="true"
-                            app:tint="#1BBA85" />
+                            app:tint="?attr/colorPrimary" />
 
                         <TextView
                             android:id="@+id/tvTanggalTerpilih"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_toEndOf="@id/ivCalendar"
                             android:layout_marginStart="12dp"
                             android:text="Pilih tanggal"
-                            android:textColor="@color/black"
-                            android:layout_centerVertical="true"/>
-                    </RelativeLayout>
+                            android:textColor="?attr/colorOnSurface"
+                            android:textSize="14sp"
+                            android:fontFamily="sans-serif-medium" />
+                    </LinearLayout>
                 </LinearLayout>
             </com.google.android.material.card.MaterialCardView>
-
-            <com.google.android.material.card.MaterialCardView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:layout_marginBottom="16dp"
-                app:cardBackgroundColor="@color/white"
-                app:cardCornerRadius="12dp"
-                app:cardElevation="2dp"
-                app:strokeWidth="0dp">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:padding="16dp">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Metode Pembayaran"
-                        android:textStyle="bold"
-                        android:textSize="16sp"
-                        android:textColor="@color/black"/>
-
-                    <RadioGroup
-                        android:id="@+id/rgPayment"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="8dp">
-                        <RadioButton
-                            android:id="@+id/rbDana"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:text="Dana / OVO / GoPay"
-                            android:padding="8dp"/>
-                        <RadioButton
-                            android:id="@+id/rbBank"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:text="Transfer Bank (VA)"
-                            android:padding="8dp"/>
-                    </RadioGroup>
-                </LinearLayout>
-            </com.google.android.material.card.MaterialCardView>
-
         </LinearLayout>
     </ScrollView>
 
-    <Button
-        android:id="@+id/btnBayarTiket"
+    <!-- Bottom Sticky Bar with Action Button -->
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/layoutBottom"
         android:layout_width="match_parent"
-        android:layout_height="56dp"
-        android:layout_margin="16dp"
-        android:backgroundTint="#1BBA85"
-        android:text="Bayar Tiket Sekarang"
-        android:textAllCaps="false"
-        android:textStyle="bold"
-        app:cornerRadius="12dp" />
+        android:layout_height="wrap_content"
+        app:cardBackgroundColor="?attr/colorSurface"
+        app:cardElevation="24dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:strokeWidth="1dp"
+        app:strokeColor="?attr/colorSurfaceVariant"
+        app:cardCornerRadius="0dp">
 
-</LinearLayout>
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btnBayarTiket"
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:layout_margin="20dp"
+            android:background="@drawable/bg_button_modern"
+            android:text="Konfirmasi Pembayaran"
+            android:textAllCaps="false"
+            android:textColor="@color/white"
+            android:textSize="16sp"
+            android:fontFamily="sans-serif-bold" />
+    </com.google.android.material.card.MaterialCardView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -4,6 +4,8 @@ import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowInsetsCompat
 import com.taufan.projectakhir.api.RegisterRequest
 import com.taufan.projectakhir.api.RegisterResponse
 import com.taufan.projectakhir.api.RetrofitClient
@@ -22,7 +24,14 @@ class SignUpActivity : AppCompatActivity() {
         binding = ActivitySignUpBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        binding.btnRegister.setOnClickListener {
+        ViewCompat.setOnApplyWindowInsetsListener(binding.main) { v, insets ->
+            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
+            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
+            insets
+        }
+
+        // Updated ID: btnRegister -> btnSignup
+        binding.btnSignup.setOnClickListener {
             val name = binding.etName.text.toString().trim()
             val email = binding.etEmail.text.toString().trim()
             val password = binding.etPassword.text.toString().trim()
@@ -32,13 +41,15 @@ class SignUpActivity : AppCompatActivity() {
             }
         }
 
-        binding.tvSignin.setOnClickListener {
+        // Updated ID: tvSignin -> tvLogin
+        binding.tvLogin.setOnClickListener {
             val intent = Intent(this, LoginActivity::class.java)
             startActivity(intent)
             overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out)
             finish()
         }
 
+        // btnBack is correctly defined in activity_sign_up.xml
         binding.btnBack.setOnClickListener {
             onBackPressedDispatcher.onBackPressed()
             overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out)
@@ -65,7 +76,6 @@ class SignUpActivity : AppCompatActivity() {
             binding.tilEmail.error = null
         }
 
-        // Disesuaikan dengan backend: minimal 8 karakter
         if (password.isEmpty()) {
             binding.tilPassword.error = "Password wajib diisi"
             isValid = false
@@ -90,7 +100,6 @@ class SignUpActivity : AppCompatActivity() {
                 if (response.isSuccessful) {
                     val registerResponse = response.body()
 
-                    // API mengembalikan: {"status":"success","message":"...","data":{"user":{...},"token":"..."}}
                     if (registerResponse?.status == "success") {
                         Toast.makeText(
                             this@SignUpActivity,
@@ -107,10 +116,8 @@ class SignUpActivity : AppCompatActivity() {
                         Toast.makeText(this@SignUpActivity, pesan, Toast.LENGTH_SHORT).show()
                     }
                 } else {
-                    // Tangani error validasi dari server (status 422)
                     when (response.code()) {
                         422 -> {
-                            // Coba baca error body
                             val errorBody = response.errorBody()?.string()
                             if (errorBody != null && errorBody.contains("password")) {
                                 binding.tilPassword.error = "Password minimal 8 karakter"
@@ -136,14 +143,16 @@ class SignUpActivity : AppCompatActivity() {
 
     private fun setLoadingState(isLoading: Boolean) {
         if (isLoading) {
-            binding.btnRegister.isEnabled = false
-            binding.btnRegister.text = "Mohon tunggu..."
+            // Updated ID: btnRegister -> btnSignup
+            binding.btnSignup.isEnabled = false
+            binding.btnSignup.text = "Mohon tunggu..."
             binding.etName.isEnabled = false
             binding.etEmail.isEnabled = false
             binding.etPassword.isEnabled = false
         } else {
-            binding.btnRegister.isEnabled = true
-            binding.btnRegister.text = "Register"
+            // Updated ID: btnRegister -> btnSignup
+            binding.btnSignup.isEnabled = true
+            binding.btnSignup.text = "Daftar Sekarang"
             binding.etName.isEnabled = true
             binding.etEmail.isEnabled = true
             binding.etPassword.isEnabled = true

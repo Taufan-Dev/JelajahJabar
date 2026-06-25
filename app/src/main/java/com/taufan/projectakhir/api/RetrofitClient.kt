@@ -10,7 +10,7 @@ import java.util.concurrent.TimeUnit
 
 object RetrofitClient {
     // Menggunakan URL ngrok aktif yang terdeteksi
-    private const val BASE_URL = "https://fragment-blog-eggbeater.ngrok-free.dev/"
+    const val BASE_URL = "https://fragment-blog-eggbeater.ngrok-free.dev/"
 
     private val logging = HttpLoggingInterceptor().apply {
         level = HttpLoggingInterceptor.Level.BODY

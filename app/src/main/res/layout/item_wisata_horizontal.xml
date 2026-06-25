@@ -1,51 +1,145 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+<com.google.android.material.card.MaterialCardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="220dp"
+    android:layout_width="240dp"
     android:layout_height="wrap_content"
-    android:layout_marginEnd="16dp"
-    android:layout_marginBottom="8dp"
-    app:cardCornerRadius="16dp"
+    android:layout_margin="10dp"
+    app:cardBackgroundColor="?attr/colorSurface"
+    app:cardCornerRadius="20dp"
     app:cardElevation="2dp"
-    app:cardBackgroundColor="@color/white"
-    app:strokeColor="#1BBA85"
+    app:strokeColor="?attr/colorSurfaceVariant"
     app:strokeWidth="1dp">
 
-    <LinearLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:layout_height="wrap_content">
 
-        <ImageView
-            android:id="@+id/ivPopuler"
+        <!-- Tourism Photo -->
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/iv_wisata"
             android:layout_width="match_parent"
-            android:layout_height="130dp"
+            android:layout_height="140dp"
             android:scaleType="centerCrop"
-            android:src="@drawable/hero" />
+            android:src="@drawable/hero"
+            app:layout_constraintTop_toTopOf="parent"
+            app:shapeAppearanceOverlay="@style/RoundedImageView" />
 
+        <!-- Floating Glassmorphic Rating Badge -->
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="12dp"
+            app:cardBackgroundColor="#CC000000"
+            app:cardCornerRadius="10dp"
+            app:cardElevation="0dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:strokeWidth="0dp">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingHorizontal="8dp"
+                android:paddingVertical="4dp">
+
+                <ImageView
+                    android:layout_width="12dp"
+                    android:layout_height="12dp"
+                    android:src="@android:drawable/btn_star_big_on"
+                    app:tint="@color/accent_orange" />
+
+                <TextView
+                    android:id="@+id/tv_rating"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="3dp"
+                    android:text="4.9"
+                    android:textColor="@color/white"
+                    android:textSize="11sp"
+                    android:fontFamily="sans-serif-bold" />
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <!-- Card Body details (No line divider, spacing based layout) -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:padding="12dp">
+            android:padding="14dp"
+            app:layout_constraintTop_toBottomOf="@+id/iv_wisata">
 
+            <!-- Title -->
             <TextView
-                android:id="@+id/tvNamaPopuler"
-                android:layout_width="wrap_content"
+                android:id="@+id/tv_nama_wisata"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Nama Wisata"
-                android:textColor="@color/black"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:text="Situ Patenggang"
+                android:textColor="?attr/colorOnSurface"
                 android:textSize="16sp"
+                android:fontFamily="@font/font_display"
                 android:textStyle="bold" />
 
+            <!-- Location -->
             <TextView
-                android:id="@+id/tvLokasiPopuler"
-                android:layout_width="wrap_content"
+                android:id="@+id/tv_lokasi"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="4dp"
-                android:text="📍 Lokasi"
-                android:textColor="#1BBA85"
-                android:textSize="13sp" />
+                android:layout_marginTop="2dp"
+                android:text="📍 Ciwidey, Bandung"
+                android:textColor="?attr/colorPrimary"
+                android:textSize="12sp"
+                android:fontFamily="@font/font_primary"
+                android:textStyle="bold|italic" />
+
+            <!-- Spacing margin -->
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="12dp" />
+
+            <!-- Price and Love Icon Row -->
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_alignParentStart="true"
+                    android:layout_centerVertical="true">
+
+                    <TextView
+                        android:id="@+id/tv_harga"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Rp 25.000"
+                        android:textColor="?attr/colorOnSurface"
+                        android:textSize="14sp"
+                        android:fontFamily="@font/font_primary"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text=" /pax"
+                        android:textColor="?attr/colorOnSurfaceVariant"
+                        android:textSize="11sp"
+                        android:fontFamily="sans-serif" />
+                </LinearLayout>
+
+                <ImageView
+                    android:layout_width="22dp"
+                    android:layout_height="22dp"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:src="@drawable/ic_heart_outlane"
+                    app:tint="?attr/colorOnSurfaceVariant" />
+            </RelativeLayout>
         </LinearLayout>
-    </LinearLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </com.google.android.material.card.MaterialCardView>

@@ -1,16 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
+    android:background="?attr/android:windowBackground"
     tools:context=".DetailActivity">
 
+    <!-- Scrollable Content -->
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:clipToPadding="false"
+        android:fillViewport="true"
         app:layout_constraintBottom_toTopOf="@id/layoutBottom"
         app:layout_constraintTop_toTopOf="parent">
 
@@ -19,18 +23,19 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
+            <!-- Image Header Area -->
             <FrameLayout
                 android:layout_width="match_parent"
-                android:layout_height="350dp">
+                android:layout_height="360dp">
 
-                <!-- Sliding ViewPager2 untuk menampung gambar slide -->
+                <!-- Image Slider ViewPager2 -->
                 <androidx.viewpager2.widget.ViewPager2
                     android:id="@+id/vpDetailGambar"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:visibility="gone" />
 
-                <!-- Fallback ImageView jika hanya ada 1 gambar atau drawable lokal -->
+                <!-- Fallback Static Image -->
                 <ImageView
                     android:id="@+id/ivDetailGambar"
                     android:layout_width="match_parent"
@@ -38,184 +43,425 @@
                     android:scaleType="centerCrop"
                     android:src="@drawable/hero" />
 
-                <!-- Teks Indicator Slider (misal: 1/5) -->
+                <!-- Top Shadow overlay for toolbar readability -->
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="120dp"
+                    android:layout_gravity="top"
+                    android:background="@drawable/bg_shadow_gradient_top" />
+
+                <!-- Bottom Shadow overlay for soft visual blending -->
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="120dp"
+                    android:layout_gravity="bottom"
+                    android:background="@drawable/bg_shadow_gradient" />
+
+                <!-- Floating Glassmorphic Back Button -->
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/btn_back_card"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_margin="20dp"
+                    app:cardBackgroundColor="#66000000"
+                    app:cardCornerRadius="20dp"
+                    app:cardElevation="0dp"
+                    app:strokeWidth="0dp">
+
+                    <ImageView
+                        android:id="@+id/ivBack"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:layout_gravity="center"
+                        android:src="@drawable/ic_back"
+                        app:tint="@color/white" />
+                </com.google.android.material.card.MaterialCardView>
+
+                <!-- Floating Slide Count Indicator -->
                 <TextView
                     android:id="@+id/tvImageIndicator"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="bottom|end"
-                    android:layout_margin="16dp"
-                    android:background="#80000000"
+                    android:layout_margin="20dp"
+                    android:background="@drawable/bg_indicator_rounded"
+                    android:paddingHorizontal="12dp"
+                    android:paddingVertical="6dp"
+                    android:text="1/5"
                     android:textColor="@color/white"
                     android:textSize="12sp"
-                    android:paddingHorizontal="10dp"
-                    android:paddingVertical="4dp"
-                    android:text="1/1"
+                    android:fontFamily="sans-serif-medium"
                     android:visibility="gone" />
 
-                <ImageView
-                    android:id="@+id/ivBack"
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
-                    android:layout_margin="16dp"
-                    android:background="@android:color/transparent"
-                    android:src="@android:drawable/ic_menu_revert"
-                    app:tint="@color/white" />
+                <!-- Visual Dots Indicator -->
+                <LinearLayout
+                    android:id="@+id/layoutDots"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="bottom|center_horizontal"
+                    android:layout_marginBottom="20dp"
+                    android:orientation="horizontal"
+                    android:visibility="gone" />
             </FrameLayout>
 
+            <!-- Bottom Content Sheet -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="-30dp"
+                android:background="@drawable/bg_top_rounded_white"
+                android:backgroundTint="?attr/colorSurface"
                 android:orientation="vertical"
-                android:padding="20dp">
+                android:padding="24dp">
 
+                <!-- Header Title and Favorite CheckBox -->
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
 
-                    <LinearLayout
+                    <TextView
+                        android:id="@+id/tvDetailJudul"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentStart="true"
                         android:layout_toStartOf="@id/cbFavorite"
-                        android:orientation="vertical">
+                        android:text="Kawah Putih Ciwidey"
+                        android:textColor="?attr/colorOnSurface"
+                        android:textSize="24sp"
+                        android:fontFamily="@font/font_display"
+                        android:textStyle="bold" />
 
-                        <TextView
-                            android:id="@+id/tvDetailJudul"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Nama Wisata"
-                            android:textColor="@color/black"
-                            android:textSize="22sp"
-                            android:textStyle="bold" />
-
-                        <TextView
-                            android:id="@+id/tvDetailLokasi"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="4dp"
-                            android:text="📍 Lokasi"
-                            android:textColor="#1BBA85"
-                            android:textSize="16sp" />
-
-                        <LinearLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="8dp"
-                            android:gravity="center_vertical"
-                            android:orientation="horizontal">
-
-                            <ImageView
-                                android:layout_width="18dp"
-                                android:layout_height="18dp"
-                                android:src="@android:drawable/btn_star_big_on"
-                                app:tint="#FFC107" />
-                            <ImageView
-                                android:layout_width="18dp"
-                                android:layout_height="18dp"
-                                android:src="@android:drawable/btn_star_big_on"
-                                app:tint="#FFC107" />
-                            <ImageView
-                                android:layout_width="18dp"
-                                android:layout_height="18dp"
-                                android:src="@android:drawable/btn_star_big_on"
-                                app:tint="#FFC107" />
-                            <ImageView
-                                android:layout_width="18dp"
-                                android:layout_height="18dp"
-                                android:src="@android:drawable/btn_star_big_on"
-                                app:tint="#FFC107" />
-                            <ImageView
-                                android:layout_width="18dp"
-                                android:layout_height="18dp"
-                                android:src="@android:drawable/btn_star_big_on"
-                                app:tint="#FFC107" />
-
-                            <TextView
-                                android:id="@+id/tvDetailRating"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginStart="8dp"
-                                android:text="(5.0)"
-                                android:textColor="#999999"
-                                android:textSize="14sp" />
-                        </LinearLayout>
-                    </LinearLayout>
-
+                    <!-- Custom Styled Favorite Selector -->
                     <CheckBox
                         android:id="@+id/cbFavorite"
-                        android:layout_width="32dp"
-                        android:layout_height="32dp"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
                         android:layout_alignParentEnd="true"
                         android:layout_centerVertical="true"
-                        android:button="@null"
-                        android:background="@drawable/selector_favorite" />
+                        android:background="@drawable/selector_favorite"
+                        android:button="@null" />
                 </RelativeLayout>
 
+                <!-- Location and Rating Info -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/tvDetailLokasi"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="📍 Bandung, Jawa Barat"
+                        android:textColor="?attr/colorPrimary"
+                        android:textSize="14sp"
+                        android:fontFamily="@font/font_primary"
+                        android:textStyle="bold|italic" />
+
+                    <View
+                        android:layout_width="1dp"
+                        android:layout_height="12dp"
+                        android:layout_marginHorizontal="12dp"
+                        android:background="?attr/colorSurfaceVariant" />
+
+                    <ImageView
+                        android:layout_width="16dp"
+                        android:layout_height="16dp"
+                        android:src="@android:drawable/btn_star_big_on"
+                        app:tint="@color/accent_orange" />
+
+                    <TextView
+                        android:id="@+id/tvDetailRating"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="4dp"
+                        android:text="4.8 (1.2k ulasan)"
+                        android:textColor="?attr/colorOnSurfaceVariant"
+                        android:textSize="14sp"
+                        android:fontFamily="@font/font_primary"
+                        android:textStyle="italic" />
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginVertical="24dp"
+                    android:background="?attr/colorSurfaceVariant" />
+
+                <!-- About Description heading -->
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="24dp"
-                    android:text="Deskripsi"
-                    android:textColor="@color/black"
+                    android:text="Tentang Destinasi"
+                    android:textColor="?attr/colorOnSurface"
                     android:textSize="18sp"
+                    android:fontFamily="@font/font_display"
                     android:textStyle="bold" />
 
+                <!-- About Description body text -->
                 <TextView
                     android:id="@+id/tvDetailDeskripsi"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    android:lineSpacingExtra="6dp"
-                    android:text="Isi deskripsi..."
-                    android:textColor="#666666"
-                    android:textSize="14sp" />
+                    android:layout_marginTop="12dp"
+                    android:lineSpacingExtra="6sp"
+                    android:text="Kawah Putih adalah sebuah danau yang terbentuk dari letusan Gunung Patuha. Tanah yang bercampur belerang di sekitar kawah ini berwarna putih, lalu warna air yang berada di kawah ini berwarna putih kehijauan, yang unik dari kawah ini adalah airnya kadang berubah warna."
+                    android:textColor="?attr/colorOnSurfaceVariant"
+                    android:textSize="15sp"
+                    android:fontFamily="sans-serif" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginVertical="24dp"
+                    android:background="?attr/colorSurfaceVariant" />
+
+                <!-- Title for Reviews Section -->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Ulasan Pengunjung"
+                    android:textColor="?attr/colorOnSurface"
+                    android:textSize="18sp"
+                    android:fontFamily="@font/font_display"
+                    android:textStyle="bold" />
+
+                <!-- Empty State for Reviews -->
+                <TextView
+                    android:id="@+id/tvNoUlasan"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    android:text="Belum ada ulasan untuk destinasi ini."
+                    android:textColor="?attr/colorOnSurfaceVariant"
+                    android:textSize="14sp"
+                    android:fontFamily="@font/font_primary"
+                    android:textStyle="italic"
+                    android:visibility="gone" />
+
+                <!-- Reviews List -->
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rvUlasan"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    android:nestedScrollingEnabled="false" />
+
+                <!-- Input Review Card (Dynamic visibility) -->
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/cvTulisUlasan"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="24dp"
+                    app:cardCornerRadius="16dp"
+                    app:cardElevation="3dp"
+                    app:cardBackgroundColor="?attr/colorGlassBackground"
+                    app:strokeColor="?attr/colorGlassStroke"
+                    app:strokeWidth="1.5dp"
+                    android:visibility="gone">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:padding="20dp">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Tulis Ulasan Anda"
+                            android:textColor="?attr/colorOnSurface"
+                            android:textSize="16sp"
+                            android:fontFamily="@font/font_primary"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="4dp"
+                            android:text="Berikan penilaian bintang dan komentar untuk destinasi ini"
+                            android:textColor="?attr/colorOnSurfaceVariant"
+                            android:textSize="12sp"
+                            android:fontFamily="@font/font_primary"
+                            android:textStyle="italic" />
+
+                        <!-- Rating selection -->
+                        <RatingBar
+                            android:id="@+id/rbInputStars"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="16dp"
+                            android:layout_gravity="center_horizontal"
+                            android:numStars="5"
+                            android:rating="5"
+                            android:stepSize="1.0"
+                            android:progressTint="@color/accent_orange"
+                            android:secondaryProgressTint="@color/accent_orange" />
+
+                        <!-- Comment input -->
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:id="@+id/tilInputUlasan"
+                            style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="16dp"
+                            android:hint="Bagikan pengalamanmu di sini..."
+                            app:boxStrokeColor="?attr/colorPrimary"
+                            app:hintTextColor="?attr/colorPrimary"
+                            app:boxCornerRadiusTopStart="12dp"
+                            app:boxCornerRadiusTopEnd="12dp"
+                            app:boxCornerRadiusBottomStart="12dp"
+                            app:boxCornerRadiusBottomEnd="12dp">
+
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/etInputUlasan"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:inputType="textMultiLine"
+                                android:minLines="3"
+                                android:gravity="top"
+                                android:textSize="14sp"
+                                android:fontFamily="@font/font_primary" />
+                        </com.google.android.material.textfield.TextInputLayout>
+
+                        <!-- Upload Photo Section -->
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="12dp"
+                            android:text="Tambahkan Foto Pendukung (Maksimal 3)"
+                            android:textColor="?attr/colorOnSurfaceVariant"
+                            android:textSize="12sp"
+                            android:fontFamily="@font/font_primary"
+                            android:textStyle="italic" />
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:layout_marginTop="8dp"
+                            android:gravity="center_vertical">
+
+                            <!-- Glassmorphism Camera Card Button -->
+                            <com.google.android.material.card.MaterialCardView
+                                android:id="@+id/btnPilihGambar"
+                                android:layout_width="72dp"
+                                android:layout_height="72dp"
+                                android:clickable="true"
+                                android:focusable="true"
+                                app:cardCornerRadius="12dp"
+                                app:cardElevation="0dp"
+                                app:cardBackgroundColor="?attr/colorGlassBackground"
+                                app:strokeColor="?attr/colorGlassStroke"
+                                app:strokeWidth="1.5dp">
+                                
+                                <ImageView
+                                    android:layout_width="24dp"
+                                    android:layout_height="24dp"
+                                    android:layout_gravity="center"
+                                    android:src="@android:drawable/ic_menu_camera"
+                                    app:tint="?attr/colorPrimary" />
+                            </com.google.android.material.card.MaterialCardView>
+
+                            <View
+                                android:layout_width="8dp"
+                                android:layout_height="match_parent" />
+
+                            <!-- Selected Image Preview List -->
+                            <androidx.recyclerview.widget.RecyclerView
+                                android:id="@+id/rvInputGambarPreview"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal"
+                                android:scrollbars="none" />
+                        </LinearLayout>
+
+                        <!-- Submit Button -->
+                        <androidx.appcompat.widget.AppCompatButton
+                            android:id="@+id/btnKirimUlasan"
+                            android:layout_width="match_parent"
+                            android:layout_height="48dp"
+                            android:layout_marginTop="20dp"
+                            android:background="@drawable/bg_button_modern"
+                            android:text="Kirim Ulasan"
+                            android:textAllCaps="false"
+                            android:textColor="@color/white"
+                            android:textSize="14sp"
+                            android:fontFamily="@font/font_primary"
+                            android:textStyle="bold" />
+
+                    </LinearLayout>
+                </com.google.android.material.card.MaterialCardView>
+
+                <!-- Padding spacer to avoid bottom sheet overlap -->
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="80dp" />
 
             </LinearLayout>
         </LinearLayout>
     </ScrollView>
 
-    <LinearLayout
+    <!-- Bottom Sticky Purchase Card -->
+    <com.google.android.material.card.MaterialCardView
         android:id="@+id/layoutBottom"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/white"
-        android:elevation="10dp"
-        android:orientation="horizontal"
-        android:padding="16dp"
-        app:layout_constraintBottom_toBottomOf="parent">
+        app:cardBackgroundColor="?attr/colorSurface"
+        app:cardElevation="16dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:strokeWidth="1dp"
+        app:strokeColor="?attr/colorSurfaceVariant"
+        app:cardCornerRadius="0dp">
 
         <LinearLayout
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:orientation="vertical">
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingHorizontal="24dp"
+            android:paddingVertical="16dp">
 
-            <TextView
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:text="Harga Tiket"
-                android:textSize="12sp" />
+                android:layout_weight="1"
+                android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/tvDetailHarga"
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Harga mulai dari"
+                    android:textColor="?attr/colorOnSurfaceVariant"
+                    android:textSize="12sp"
+                    android:fontFamily="sans-serif" />
+
+                <TextView
+                    android:id="@+id/tvDetailHarga"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Rp 35.000"
+                    android:textColor="?attr/colorPrimary"
+                    android:textSize="20sp"
+                    android:fontFamily="@font/font_primary"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btnBeliTiket"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Rp 20.000"
-                android:textColor="#1BBA85"
-                android:textSize="18sp"
+                android:layout_height="50dp"
+                android:background="@drawable/bg_button_modern"
+                android:paddingHorizontal="32dp"
+                android:text="Pesan Tiket"
+                android:textAllCaps="false"
+                android:textColor="@color/white"
+                android:textSize="16sp"
+                android:fontFamily="@font/font_primary"
                 android:textStyle="bold" />
         </LinearLayout>
-
-        <Button
-            android:id="@+id/btnBeliTiket"
-            android:layout_width="wrap_content"
-            android:layout_height="55dp"
-            android:backgroundTint="#1BBA85"
-            android:paddingHorizontal="32dp"
-            android:text="Beli Tiket"
-            android:textAllCaps="false"
-            app:cornerRadius="12dp" />
-    </LinearLayout>
+    </com.google.android.material.card.MaterialCardView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

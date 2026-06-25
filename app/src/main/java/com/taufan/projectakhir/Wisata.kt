@@ -3,9 +3,11 @@ package com.taufan.projectakhir
 import android.os.Parcelable
 import kotlinx.parcelize.Parcelize
 import com.taufan.projectakhir.api.WisataApiItem
+import com.taufan.projectakhir.api.RetrofitClient
 
 @Parcelize
 data class Wisata(
+    val id: Int, // Menambahkan ID destinasi wisata agar dapat melakukan order tiket via API
     val nama: String,
     val lokasi: String,
     val gambar: Int,
@@ -25,6 +27,7 @@ fun WisataApiItem.toWisata(): Wisata {
         namaWisata.contains("Patenggang", ignoreCase = true) -> R.drawable.situpatenggang
         namaWisata.contains("Curug Putri", ignoreCase = true) -> R.drawable.curugputri
         namaWisata.contains("Papandayan", ignoreCase = true) -> R.drawable.papandayan
+        namaWisata.contains("Tangkuban", ignoreCase = true) -> R.drawable.papandayan
         namaWisata.contains("Waterland", ignoreCase = true) -> R.drawable.cirebonwaterland
         namaWisata.contains("Kebun Raya", ignoreCase = true) -> R.drawable.kebunraya
         namaWisata.contains("Waduk Darma", ignoreCase = true) -> R.drawable.situpatenggang
@@ -49,6 +52,7 @@ fun WisataApiItem.toWisata(): Wisata {
 
     // Mengurai gambar (JsonElement) menjadi list gambar URL secara super aman
     val fullGambarUrls = mutableListOf<String>()
+    val baseUrl = RetrofitClient.BASE_URL.removeSuffix("/")
     if (gambar != null) {
         try {
             if (gambar.isJsonArray) {
@@ -56,7 +60,7 @@ fun WisataApiItem.toWisata(): Wisata {
                 for (i in 0 until jsonArray.size()) {
                     val imgStr = jsonArray.get(i).asString
                     if (!imgStr.isNullOrEmpty()) {
-                        val url = if (imgStr.startsWith("http")) imgStr else "https://fragment-blog-eggbeater.ngrok-free.dev/storage/$imgStr"
+                        val url = if (imgStr.startsWith("http")) imgStr else "$baseUrl/storage/$imgStr"
                         fullGambarUrls.add(url)
                     }
                 }
@@ -67,12 +71,12 @@ fun WisataApiItem.toWisata(): Wisata {
                         imgStr.split(",").forEach { part ->
                             val trimmed = part.trim()
                             if (trimmed.isNotEmpty()) {
-                                val url = if (trimmed.startsWith("http")) trimmed else "https://fragment-blog-eggbeater.ngrok-free.dev/storage/$trimmed"
-                                fullGambarUrls.add(url)
+                                val url = if (trimmed.startsWith("http")) trimmed else "$baseUrl/storage/$trimmed"
+                                    fullGambarUrls.add(url)
                             }
                         }
                     } else {
-                        val url = if (imgStr.startsWith("http")) imgStr else "https://fragment-blog-eggbeater.ngrok-free.dev/storage/$imgStr"
+                        val url = if (imgStr.startsWith("http")) imgStr else "$baseUrl/storage/$imgStr"
                         fullGambarUrls.add(url)
                     }
                 }
@@ -85,6 +89,7 @@ fun WisataApiItem.toWisata(): Wisata {
     val mainGambarUrl = if (fullGambarUrls.isNotEmpty()) fullGambarUrls[0] else null
 
     return Wisata(
+        id = id, // Set ID
         nama = namaWisata,
         lokasi = lokasi,
         gambar = localDrawable,

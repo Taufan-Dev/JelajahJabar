@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Glassmorphism attributes -->
+    <attr name="colorGlassBackground" format="color" />
+    <attr name="colorGlassStroke" format="color" />
+    
+    <!-- Custom theme-aware screen backgrounds -->
+    <attr name="authScreenBackground" format="reference" />
+</resources>

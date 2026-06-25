@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView 
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginVertical="6dp"
+    android:layout_marginHorizontal="2dp"
+    app:cardCornerRadius="16dp"
+    app:cardElevation="2dp"
+    app:cardBackgroundColor="?attr/colorGlassBackground"
+    app:strokeColor="?attr/colorGlassStroke"
+    app:strokeWidth="1dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="16dp">
+
+        <!-- Top Header: User Name and Date -->
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/tvUlasanUser"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:text="Taufan"
+                android:textColor="?attr/colorOnSurface"
+                android:textSize="14sp"
+                android:fontFamily="@font/font_primary"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tvUlasanDate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:text="24 Jun 2026"
+                android:textColor="?attr/colorOnSurfaceVariant"
+                android:textSize="11sp"
+                android:fontFamily="@font/font_primary"
+                android:textStyle="italic" />
+        </RelativeLayout>
+
+        <!-- Rating Indicator -->
+        <RatingBar
+            android:id="@+id/rbUlasanStars"
+            style="?android:attr/ratingBarStyleSmall"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:numStars="5"
+            android:rating="5"
+            android:stepSize="1"
+            android:progressTint="@color/accent_orange"
+            android:secondaryProgressTint="@color/accent_orange" />
+
+        <!-- Comment Text -->
+        <TextView
+            android:id="@+id/tvUlasanText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="Tempatnya luar biasa indah dan sejuk! Sangat direkomendasikan untuk berlibur bersama keluarga."
+            android:textColor="?attr/colorOnSurface"
+            android:textSize="13sp"
+            android:lineSpacingExtra="3sp"
+            android:fontFamily="@font/font_primary" />
+
+        <!-- Review Images List -->
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvUlasanImages"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:orientation="horizontal"
+            android:scrollbars="none"
+            android:visibility="gone" />
+
+    </LinearLayout>
+</com.google.android.material.card.MaterialCardView>

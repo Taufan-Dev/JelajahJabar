@@ -1,63 +1,76 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
-    android:orientation="vertical">
+    android:background="?attr/android:windowBackground">
 
+    <!-- Screen Title Header -->
     <TextView
+        android:id="@+id/tv_header"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="24dp"
+        android:fontFamily="sans-serif-black"
+        android:text="Favorit Saya ❤️"
+        android:textColor="?attr/colorOnSurface"
+        android:textSize="24sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <!-- Favorite list RecyclerView -->
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvFavorite"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="16dp"
+        android:clipToPadding="false"
+        android:paddingHorizontal="16dp"
+        android:paddingBottom="24dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_header"
+        tools:listitem="@layout/item_wisata_favorite" />
+
+    <!-- Empty Favorite State -->
+    <LinearLayout
+        android:id="@+id/layoutEmptyFavorite"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Wisata Favorit"
-        android:textSize="18sp"
-        android:textStyle="bold"
-        android:textColor="@color/black"
         android:gravity="center"
-        android:padding="20dp" />
+        android:orientation="vertical"
+        android:padding="32dp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_header">
 
-    <FrameLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        <ImageView
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:alpha="0.4"
+            android:src="@drawable/ic_favorite"
+            app:tint="?attr/colorOnSurfaceVariant" />
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rvFavorite"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:fontFamily="sans-serif-bold"
+            android:text="Belum Ada Favorit"
+            android:textColor="?attr/colorOnSurface"
+            android:textSize="18sp" />
 
-        <LinearLayout
-            android:id="@+id/layoutEmptyFavorite"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
             android:gravity="center"
-            android:orientation="vertical"
-            android:padding="24dp"
-            android:visibility="gone">
+            android:text="Temukan destinasi menarik dan simpan ke daftar favoritmu."
+            android:textColor="?attr/colorOnSurfaceVariant"
+            android:textSize="14sp"
+            android:fontFamily="sans-serif" />
+    </LinearLayout>
 
-            <ImageView
-                android:layout_width="120dp"
-                android:layout_height="120dp"
-                android:src="@drawable/ic_favorite"
-                android:contentDescription="Empty"
-                android:tint="#D1D5DB" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:text="Belum ada Favorit ❤️"
-                android:textColor="@color/black"
-                android:textSize="18sp"
-                android:textStyle="bold" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:gravity="center"
-                android:text="Jelajahi tempat wisata menarik dan ketuk ikon hati untuk menyimpannya di sini."
-                android:textColor="#9CA3AF"
-                android:textSize="14sp" />
-        </LinearLayout>
-    </FrameLayout>
-
-</LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
